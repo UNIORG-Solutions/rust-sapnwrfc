@@ -1,8 +1,7 @@
 #[macro_use]
 extern crate error_chain;
 extern crate dotenv;
-mod binding;
-mod sapnwrfc;
+extern crate sapnwrfc;
 
 use dotenv::dotenv;
 use sapnwrfc::*;
@@ -21,6 +20,7 @@ fn main() {
         .connect().expect("could not create connection");
     println!("{:?}", x);
 
-    let func = x.get_function("BAPI_COMPANY_GETDETAIL").unwrap();
+    let func = x.get_function_description("BAPI_COMPANY_GETDETAIL").unwrap();
+
     println!("function: {:?}", func.name())
 }

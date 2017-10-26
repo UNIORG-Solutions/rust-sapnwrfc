@@ -1,0 +1,10 @@
+[package]
+authors = ["Mark Schmale <m.schmale@uniorg.de>"]
+name = "sapnwrfc"
+version = "0.1.0"
+
+[lib]
+name = "sapnwrfc"
+
+[dependencies]
+error-chain = "0.11.0"

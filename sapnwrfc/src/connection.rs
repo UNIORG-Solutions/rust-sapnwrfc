@@ -1,26 +1,9 @@
 use binding::*;
-
-pub use binding::RFC_RC;
-
-mod errors {
-    error_chain!(
-        foreign_links {
-           Fmt(::std::fmt::Error);
-           FromUtf16(::std::string::FromUtf16Error);
-        }
-
-        errors {
-            GenericRfcError(code: ::binding::RFC_RC) {
-                description("rfc action failed"),
-                display("rfc action failed: {:?}", code)
-            }
-        }
-    );
-}
-
-fn create_rfc_error(info: &RFC_ERROR_INFO) -> errors::ErrorKind {
-    errors::ErrorKind::GenericRfcError(info.code)
-}
+use std::marker::PhantomData;
+use function_desc::*;
+use errors::create_rfc_error;
+use types::SapString;
+use errors;
 
 #[derive(Debug, Eq, PartialEq, Clone)]
 enum ConnectParameterEntry {
@@ -59,45 +42,8 @@ impl<'a> From<&'a SapConnectParameter> for (SapString, SapString) {
     }
 }
 
-fn to_utf16_vec<'a>(input: &'a str) -> Vec<i8> {
-    input.encode_utf16().chain(vec![0]).flat_map(|chr| vec![(chr % 256) as i8, (chr / 256) as i8]).collect()
-}
-
-#[derive(Debug, Clone)]
-struct SapString(Vec<i8>);
-
-impl<'a> From<&'a SapString> for SapString {
-    fn from(input: &'a SapString) -> Self {
-        input.clone()
-    }
-}
-
-impl<'a> From<&'a String> for SapString {
-    fn from(input: &'a String) -> Self {
-        SapString(to_utf16_vec(input))
-    }
-}
-
-impl From<String> for SapString {
-    fn from(input: String) -> Self {
-        SapString(to_utf16_vec(&input))
-    }
-}
-
-impl<'a> From<&'a str> for SapString {
-    fn from(input: &'a str) -> Self {
-        SapString(to_utf16_vec(input))
-    }
-}
-
-impl SapString {
-    pub fn as_ptr(&self) -> *const i8 {
-        self.0.as_ptr()
-    }
-}
-
 #[derive(Debug)]
-pub enum SapConnectParameter {
+enum SapConnectParameter {
     Direct { host: String, sysnr: u16 },
     LoadBalancing { host: String, message_server: Option<String>, sysid: String }
 }
@@ -126,7 +72,7 @@ impl Into<Vec<ConnectParameterEntry>> for SapConnectParameter {
 }
 
 #[derive(Debug)]
-pub enum SapAuthenticationParameter {
+enum SapAuthenticationParameter {
     Credentials { username: String, password: String },
     SecureNetworkCommunications { qop: String, myname: String, partner_name: String, library: Option<String> },
     SingleSignOn { ticket: String }
@@ -222,7 +168,7 @@ impl ConnectionBuilder {
         })
     }
 
-    pub fn connect(self) -> errors::Result<Connection> {
+    pub fn connect<'a>(self) -> errors::Result<Connection> {
         let mut error_info: RFC_ERROR_INFO = Default::default();
         let parameters: Vec<(SapString, SapString)> = self.parameters()?.into();
         let list: Vec<RFC_CONNECTION_PARAMETER> = parameters
@@ -238,32 +184,7 @@ impl ConnectionBuilder {
         unsafe {
             let con = RfcOpenConnection(list.as_ptr(), list.len() as u32, &mut error_info);
             match error_info.code {
-                RFC_RC::RFC_OK => Ok(Connection::create(Box::new(con))),
-                _ => Err(create_rfc_error(&error_info).into())
-            }
-        }
-    }
-}
-
-#[derive(Debug)]
-pub struct Function<'a > {
-    internal: Box<RFC_FUNCTION_HANDLE>,
-    connection: &'a Connection
-}
-
-#[derive(Debug)]
-pub struct FunctionDescription {
-    internal: Box<RFC_FUNCTION_DESC_HANDLE>,
-}
-
-impl FunctionDescription {
-    pub fn name(&self) -> errors::Result<String> {
-        let mut error_info: RFC_ERROR_INFO = RFC_ERROR_INFO::default();
-        let mut name_buffer: [u16; 31] = [0; 31];
-        unsafe {
-            let rc = RfcGetFunctionName(*self.internal, name_buffer.as_mut_ptr() as *mut i8, &mut error_info);
-            match error_info.code {
-                RFC_RC::RFC_OK => Ok(String::from_utf16(&name_buffer)?.trim_right_matches('\0').into()),
+                RFC_RC::RFC_OK => Ok(Connection::create(con)),
                 _ => Err(create_rfc_error(&error_info).into())
             }
         }
@@ -273,23 +194,35 @@ impl FunctionDescription {
 
 #[derive(Debug)]
 pub struct Connection {
-    internal: Box<RFC_CONNECTION_HANDLE>
+    internal: RFC_CONNECTION_HANDLE
 }
 
 impl Connection {
-    fn create(handle: Box<RFC_CONNECTION_HANDLE>) -> Connection {
+    fn create(handle: RFC_CONNECTION_HANDLE) -> Connection {
         Connection { internal: handle }
     }
 
-    pub fn get_function<'a, T: Into<SapString>>(&self, name: T) -> errors::Result<FunctionDescription> {
+    pub fn get_function_description<'a, T: Into<SapString>>(&'a self, name: T) -> errors::Result<FunctionDescription<'a>> {
         let mut error_info: RFC_ERROR_INFO = RFC_ERROR_INFO::default();
         let sname: SapString = name.into();
         unsafe {
-            let result = RfcGetFunctionDesc(*self.internal, sname.as_ptr(), &mut error_info);
+            let result = RfcGetFunctionDesc(self.internal, sname.as_ptr(), &mut error_info);
             if error_info.code == RFC_RC::RFC_OK {
-                Ok(FunctionDescription { internal: Box::new(result) })
+                Ok(FunctionDescription { internal: result, con: PhantomData })
             } else {
                 Err(create_rfc_error(&error_info).into())
+            }
+        }
+    }
+}
+
+impl Drop for Connection {
+    fn drop(&mut self) {
+        let mut error_info: RFC_ERROR_INFO = RFC_ERROR_INFO::default();
+        unsafe {
+            RfcCloseConnection(self.internal, &mut error_info);
+            if error_info.code != RFC_RC::RFC_OK {
+                panic!("error while closing the socket: {:?}", create_rfc_error(&error_info));
             }
         }
     }

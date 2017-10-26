@@ -5234,17 +5234,12 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Deletes the function description and releases the allocated resources.
-/// \ingroup function
-///
-/// Only descriptions, which are not stored in a repository cache and not used by the application, can be deleted.
-/// Deleting a cached description will cause an error, and deleting a description that is still in use, will lead
-/// to a crash.
-///
-///
-/// \in funcDesc A function description.
-/// \out *errorInfo Should always return successfully...
-/// \return RFC_RC
+
+    /// Deletes the function description and releases the allocated resources.
+    ///
+    /// Only descriptions, which are not stored in a repository cache and not used by the application, can be deleted.
+    /// Deleting a cached description will cause an error, and deleting a description that is still in use, will lead
+    /// to a crash.
     pub fn RfcDestroyFunctionDesc(funcDesc: RFC_FUNCTION_DESC_HANDLE,
                                   errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
