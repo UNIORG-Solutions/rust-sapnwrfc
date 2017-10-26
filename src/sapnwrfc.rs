@@ -1,12 +1,25 @@
 use binding::*;
 
+pub use binding::RFC_RC;
+
 mod errors {
     error_chain!(
         foreign_links {
            Fmt(::std::fmt::Error);
            FromUtf16(::std::string::FromUtf16Error);
         }
+
+        errors {
+            GenericRfcError(code: ::binding::RFC_RC) {
+                description("rfc action failed"),
+                display("rfc action failed: {:?}", code)
+            }
+        }
     );
+}
+
+fn create_rfc_error(info: &RFC_ERROR_INFO) -> errors::ErrorKind {
+    errors::ErrorKind::GenericRfcError(info.code)
 }
 
 #[derive(Debug, Eq, PartialEq, Clone)]
@@ -46,16 +59,12 @@ impl<'a> From<&'a SapConnectParameter> for (SapString, SapString) {
     }
 }
 
-
 fn to_utf16_vec<'a>(input: &'a str) -> Vec<i8> {
     input.encode_utf16().chain(vec![0]).flat_map(|chr| vec![(chr % 256) as i8, (chr / 256) as i8]).collect()
 }
 
-type ConnParEntry = (SapString, SapString);
-type ConnParList = Vec<ConnParEntry>;
-
 #[derive(Debug, Clone)]
-pub struct SapString(Vec<i8>);
+struct SapString(Vec<i8>);
 
 impl<'a> From<&'a SapString> for SapString {
     fn from(input: &'a SapString) -> Self {
@@ -187,12 +196,12 @@ impl ConnectionBuilder {
         }
     }
 
-    pub fn direct_connection<T>(mut self, host: T, sysnr: u16) -> Self where T: Into<String> {
+    pub fn direct_connection<T: Into<String>>(mut self, host: T, sysnr: u16) -> Self {
         self.target = Some(SapConnectParameter::Direct { host: host.into(), sysnr });
         self
     }
 
-    pub fn login<T>(mut self, user: T, password: T) -> Self where T: Into<String> {
+    pub fn login<T: Into<String>>(mut self, user: T, password: T) -> Self {
         self.auth = Some(SapAuthenticationParameter::Credentials { username: user.into(), password: password.into() });
         self
     }
@@ -214,7 +223,7 @@ impl ConnectionBuilder {
     }
 
     pub fn connect(self) -> errors::Result<Connection> {
-        let mut err_info: RFC_ERROR_INFO = Default::default();
+        let mut error_info: RFC_ERROR_INFO = Default::default();
         let parameters: Vec<(SapString, SapString)> = self.parameters()?.into();
         let list: Vec<RFC_CONNECTION_PARAMETER> = parameters
             .iter()
@@ -226,23 +235,12 @@ impl ConnectionBuilder {
             })
             .collect();
 
-        let mut connection: Option<RFC_CONNECTION_HANDLE> = None;
-
         unsafe {
-            let con = RfcOpenConnection(list.as_ptr(), list.len() as u32, &mut err_info);
-
-            println!("{:?} {:?}", list.len(), err_info.code);
-            if err_info.code != RFC_RC::RFC_OK {
-                //  println!("{:?}", String::from_utf8(key));
-            } else {
-                connection = Some(con);
+            let con = RfcOpenConnection(list.as_ptr(), list.len() as u32, &mut error_info);
+            match error_info.code {
+                RFC_RC::RFC_OK => Ok(Connection::create(Box::new(con))),
+                _ => Err(create_rfc_error(&error_info).into())
             }
-        }
-
-        if let Some(con) = connection {
-            Ok(Connection::create(Box::new(con)))
-        } else {
-            Err("could not connect".into())
         }
     }
 }
@@ -264,12 +262,11 @@ impl FunctionDescription {
         let mut name_buffer: [u16; 31] = [0; 31];
         unsafe {
             let rc = RfcGetFunctionName(*self.internal, name_buffer.as_mut_ptr() as *mut i8, &mut error_info);
-            if rc == RFC_RC::RFC_OK {
-                return Ok(String::from_utf16(&name_buffer)?.trim_right_matches('\0').into());
-            };
+            match error_info.code {
+                RFC_RC::RFC_OK => Ok(String::from_utf16(&name_buffer)?.trim_right_matches('\0').into()),
+                _ => Err(create_rfc_error(&error_info).into())
+            }
         }
-
-        Err("nein".into())
     }
 }
 
@@ -290,10 +287,10 @@ impl Connection {
         unsafe {
             let result = RfcGetFunctionDesc(*self.internal, sname.as_ptr(), &mut error_info);
             if error_info.code == RFC_RC::RFC_OK {
-                return Ok(FunctionDescription { internal: Box::new(result) });
+                Ok(FunctionDescription { internal: Box::new(result) })
+            } else {
+                Err(create_rfc_error(&error_info).into())
             }
         }
-
-        return Err("geht nicht".into());
     }
 }
