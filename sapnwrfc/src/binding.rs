@@ -119,8 +119,8 @@ pub type RFC_DECF34 = DecFloat34;
 pub type RFC_TID = [SAP_UC; 25usize];
 pub type RFC_UNITID = [SAP_UC; 33usize];
 #[repr(u32)]
-/// \enum _RFCTYPE
-/// \ingroup api
+/// _RFCTYPE
+///
 ///
 /// RFCTYPE is used in field descriptions (#RFC_FIELD_DESC) and parameter descriptions
 /// (#RFC_PARAMETER_DESC) and denotes the ABAP data type of the corresponding field/parameter.
@@ -161,8 +161,8 @@ pub enum _RFCTYPE {
 }
 pub use self::_RFCTYPE as RFCTYPE;
 #[repr(u32)]
-/// \enum _RFC_RC
-/// \ingroup api
+/// _RFC_RC
+///
 ///
 /// RFC return codes used by all functions that do not directly return a handle.
 /// Also used as error indicator in the structure #RFC_ERROR_INFO::code.
@@ -202,8 +202,8 @@ pub enum _RFC_RC {
 }
 pub use self::_RFC_RC as RFC_RC;
 #[repr(u32)]
-/// \enum _RFC_ERROR_GROUP
-/// \ingroup api
+/// _RFC_ERROR_GROUP
+///
 ///
 /// Groups several error conditions together, depending on the "layer" to which they belong.
 /// Used in the structure #RFC_ERROR_INFO::group.
@@ -219,8 +219,9 @@ pub enum _RFC_ERROR_GROUP {
     EXTERNAL_AUTHORIZATION_FAILURE = 7,
 }
 pub use self::_RFC_ERROR_GROUP as RFC_ERROR_GROUP;
-/// \struct _RFC_ERROR_INFO
-/// \ingroup api
+
+/// _RFC_ERROR_INFO
+///
 ///
 /// Used in all functions of the NW RFC library to return detailed information about
 /// an error that has just occurred. This can be an error that the communication partner
@@ -234,27 +235,27 @@ pub use self::_RFC_ERROR_GROUP as RFC_ERROR_GROUP;
 #[repr(C)]
 #[derive(Copy)]
 pub struct _RFC_ERROR_INFO {
-    /// < Error code. Should be the same as the API returns if the API has return type RFC_RC
+    /// Error code. Should be the same as the API returns if the API has return type RFC_RC
     pub code: RFC_RC,
-    /// < Error group
+    /// Error group
     pub group: RFC_ERROR_GROUP,
-    /// < Error key
+    /// Error key
     pub key: [SAP_UC; 128usize],
-    /// < Error message
+    /// Error message
     pub message: [SAP_UC; 512usize],
-    /// < ABAP message ID , or class
+    /// ABAP message ID , or class
     pub abapMsgClass: [SAP_UC; 21usize],
-    /// < ABAP message type, e.g. 'E', 'A' or 'X'
+    /// ABAP message type, e.g. 'E', 'A' or 'X'
     pub abapMsgType: [SAP_UC; 2usize],
-    /// < ABAP message number
+    /// ABAP message number
     pub abapMsgNumber: [RFC_NUM; 4usize],
-    /// < ABAP message details field 1, corresponds to SY-MSGV1
+    /// ABAP message details field 1, corresponds to SY-MSGV1
     pub abapMsgV1: [SAP_UC; 51usize],
-    /// < ABAP message details field 2, corresponds to SY-MSGV2
+    /// ABAP message details field 2, corresponds to SY-MSGV2
     pub abapMsgV2: [SAP_UC; 51usize],
-    /// < ABAP message details field 3, corresponds to SY-MSGV3
+    /// ABAP message details field 3, corresponds to SY-MSGV3
     pub abapMsgV3: [SAP_UC; 51usize],
-    /// < ABAP message details field 4, corresponds to SY-MSGV4
+    /// ABAP message details field 4, corresponds to SY-MSGV4
     pub abapMsgV4: [SAP_UC; 51usize],
 }
 #[test]
@@ -326,59 +327,60 @@ impl Default for _RFC_ERROR_INFO {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_ERROR_INFO = _RFC_ERROR_INFO;
-/// \struct _RFC_ATTRIBUTES
-/// \ingroup connection
+
+/// _RFC_ATTRIBUTES
+///
 ///
 /// Structure returned by RfcGetConnectionAttributes() giving some
 /// information about the partner system on the other side of this RFC connection.
 #[repr(C)]
 #[derive(Copy)]
 pub struct _RFC_ATTRIBUTES {
-    /// < RFC destination
+    /// RFC destination
     pub dest: [SAP_UC; 65usize],
-    /// < Own host name
+    /// Own host name
     pub host: [SAP_UC; 101usize],
-    /// < Partner host name
+    /// Partner host name
     pub partnerHost: [SAP_UC; 101usize],
-    /// < R/3 system number
+    /// R/3 system number
     pub sysNumber: [SAP_UC; 3usize],
-    /// < R/3 system ID
+    /// R/3 system ID
     pub sysId: [SAP_UC; 9usize],
-    /// < Client ("Mandant")
+    /// Client ("Mandant")
     pub client: [SAP_UC; 4usize],
-    /// < User
+    /// User
     pub user: [SAP_UC; 13usize],
-    /// < Language
+    /// Language
     pub language: [SAP_UC; 3usize],
-    /// < Trace level (0-3)
+    /// Trace level (0-3)
     pub trace: [SAP_UC; 2usize],
-    /// < 2-byte ISO-Language
+    /// 2-byte ISO-Language
     pub isoLanguage: [SAP_UC; 3usize],
-    /// < Own code page
+    /// Own code page
     pub codepage: [SAP_UC; 5usize],
-    /// < Partner code page
+    /// Partner code page
     pub partnerCodepage: [SAP_UC; 5usize],
-    /// < C/S: RFC Client / RFC Server
+    /// C/S: RFC Client / RFC Server
     pub rfcRole: [SAP_UC; 2usize],
-    /// < 2/3/E/R: R/2,R/3,Ext,Reg.Ext
+    /// 2/3/E/R: R/2,R/3,Ext,Reg.Ext
     pub type_: [SAP_UC; 2usize],
-    /// < 2/3/E/R: R/2,R/3,Ext,Reg.Ext
+    /// 2/3/E/R: R/2,R/3,Ext,Reg.Ext
     pub partnerType: [SAP_UC; 2usize],
-    /// < My system release
+    /// My system release
     pub rel: [SAP_UC; 5usize],
-    /// < Partner system release
+    /// Partner system release
     pub partnerRel: [SAP_UC; 5usize],
-    /// < Partner kernel release
+    /// Partner kernel release
     pub kernelRel: [SAP_UC; 5usize],
-    /// < CPI-C Conversation ID
+    /// CPI-C Conversation ID
     pub cpicConvId: [SAP_UC; 9usize],
-    /// < Name of the calling APAB program (report, module pool)
+    /// Name of the calling APAB program (report, module pool)
     pub progName: [SAP_UC; 129usize],
-    /// < Number of bytes per character in the backend's current codepage. Note this is different from the semantics of the PCS parameter.
+    /// Number of bytes per character in the backend's current codepage. Note this is different from the semantics of the PCS parameter.
     pub partnerBytesPerChar: [SAP_UC; 2usize],
-    /// <  Partner system code page
+    /// Partner system code page
     pub partnerSystemCodepage: [SAP_UC; 5usize],
-    /// < Reserved for later use
+    /// Reserved for later use
     pub reserved: [SAP_UC; 79usize],
 }
 #[test]
@@ -511,27 +513,28 @@ impl Default for _RFC_ATTRIBUTES {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_ATTRIBUTES = _RFC_ATTRIBUTES;
-/// \struct _RFC_SECURITY_ATTRIBUTES
-/// \ingroup connection
+
+/// _RFC_SECURITY_ATTRIBUTES
+///
 ///
 /// Structure passed to the RFC_SERVER_AUTHORIZATION_HANDLER giving some
 /// security related information about the calling ABAP partner of an incoming RFC call.
 #[repr(C)]
 #[derive(Debug, Copy)]
 pub struct _RFC_SECURITY_ATTRIBUTES {
-    /// < Name of the called function module
+    /// Name of the called function module
     pub functionName: *mut SAP_UC,
-    /// < Calling ABAP system ID
+    /// Calling ABAP system ID
     pub sysId: *mut SAP_UC,
-    /// < ABAP Client ("Mandant")
+    /// ABAP Client ("Mandant")
     pub client: *mut SAP_UC,
-    /// < ABAP User
+    /// ABAP User
     pub user: *mut SAP_UC,
-    /// < Name of the calling APAB program (report, module pool)
+    /// Name of the calling APAB program (report, module pool)
     pub progName: *mut SAP_UC,
-    /// < SNC key of the calling ABAP system, if SNC is enabled
+    /// SNC key of the calling ABAP system, if SNC is enabled
     pub sncName: *mut SAP_UC,
-    /// < Logon ticket of the ABAP user, if SSO2 or assertion tickets are enabled
+    /// Logon ticket of the ABAP user, if SSO2 or assertion tickets are enabled
     pub ssoTicket: *mut SAP_UC,
 }
 #[test]
@@ -589,8 +592,9 @@ impl Default for _RFC_SECURITY_ATTRIBUTES {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_SECURITY_ATTRIBUTES = _RFC_SECURITY_ATTRIBUTES;
-/// \struct _RFC_UNIT_ATTRIBUTES
-/// \ingroup bgrfc
+
+/// _RFC_UNIT_ATTRIBUTES
+///
 ///
 /// If the external program is the sender of the bgRFC unit, this structure is used to set a
 /// bunch of special attributes that determine, how a bgRFC Unit will be processed in the backend.
@@ -603,29 +607,29 @@ pub type RFC_SECURITY_ATTRIBUTES = _RFC_SECURITY_ATTRIBUTES;
 #[repr(C)]
 #[derive(Copy)]
 pub struct _RFC_UNIT_ATTRIBUTES {
-    /// < If != 0, the backend will write kernel traces, while executing this unit.
+    /// If != 0, the backend will write kernel traces, while executing this unit.
     pub kernelTrace: ::std::os::raw::c_short,
-    /// < If != 0, the backend will write statistic records, while executing this unit.
+    /// If != 0, the backend will write statistic records, while executing this unit.
     pub satTrace: ::std::os::raw::c_short,
-    /// < If != 0, the backend will keep a "history" for this unit.
+    /// If != 0, the backend will keep a "history" for this unit.
     pub unitHistory: ::std::os::raw::c_short,
-    /// < Used only for type Q: If != 0, the unit will be written to the queue, but not processed. The unit can then be started manually in the ABAP debugger.
+    /// Used only for type Q: If != 0, the unit will be written to the queue, but not processed. The unit can then be started manually in the ABAP debugger.
     pub lock: ::std::os::raw::c_short,
-    /// < Per default the backend will check during execution of a unit, whether one of the unit's function modules triggers an explicit or implicit COMMIT WORK. In this case the unit is aborted with an error, because the transactional integrity of this unit cannot be guaranteed. By setting "noCommitCheck" to true (!=0), this behavior can be suppressed, meaning the unit will be executed anyway, even if one of it's function modules "misbehaves" and triggers a COMMIT WORK.
+    /// Per default the backend will check during execution of a unit, whether one of the unit's function modules triggers an explicit or implicit COMMIT WORK. In this case the unit is aborted with an error, because the transactional integrity of this unit cannot be guaranteed. By setting "noCommitCheck" to true (!=0), this behavior can be suppressed, meaning the unit will be executed anyway, even if one of it's function modules "misbehaves" and triggers a COMMIT WORK.
     pub noCommitCheck: ::std::os::raw::c_short,
-    /// < Sender User (optional). Default is current operating system User.
+    /// Sender User (optional). Default is current operating system User.
     pub user: [SAP_UC; 13usize],
-    /// < Sender Client ("Mandant") (optional). Default is "000".
+    /// Sender Client ("Mandant") (optional). Default is "000".
     pub client: [SAP_UC; 4usize],
-    /// < Sender Transaction Code (optional). Default is "".
+    /// Sender Transaction Code (optional). Default is "".
     pub tCode: [SAP_UC; 21usize],
-    /// < Sender Program (optional). Default is current executable name.
+    /// Sender Program (optional). Default is current executable name.
     pub program: [SAP_UC; 41usize],
-    /// < Sender hostname. Used only when the external program is server. In the client case the nwrfclib fills this automatically.
+    /// Sender hostname. Used only when the external program is server. In the client case the nwrfclib fills this automatically.
     pub hostname: [SAP_UC; 41usize],
-    /// < Sending date in UTC (GMT-0). Used only when the external program is server. In the client case the nwrfclib fills this automatically.
+    /// Sending date in UTC (GMT-0). Used only when the external program is server. In the client case the nwrfclib fills this automatically.
     pub sendingDate: RFC_DATE,
-    /// < Sending time in UTC (GMT-0). Used only when the external program is server. In the client case the nwrfclib fills this automatically.
+    /// Sending time in UTC (GMT-0). Used only when the external program is server. In the client case the nwrfclib fills this automatically.
     pub sendingTime: RFC_TIME,
 }
 #[test]
@@ -704,16 +708,17 @@ impl Default for _RFC_UNIT_ATTRIBUTES {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_UNIT_ATTRIBUTES = _RFC_UNIT_ATTRIBUTES;
-/// \struct _RFC_UNIT_IDENTIFIER
-/// \ingroup bgrfc
+
+/// _RFC_UNIT_IDENTIFIER
+///
 ///
 /// For convenience combines a unit's ID and its type.
 #[repr(C)]
 #[derive(Copy)]
 pub struct _RFC_UNIT_IDENTIFIER {
-    /// < 'T' for "transactional" behavior (unit is executed synchronously), 'Q' for "queued" behavior (unit is written into a queue and executed asynchronously)
+    /// 'T' for "transactional" behavior (unit is executed synchronously), 'Q' for "queued" behavior (unit is written into a queue and executed asynchronously)
     pub unitType: SAP_UC,
-    /// < The 32 digit unit ID of the background unit.
+    /// The 32 digit unit ID of the background unit.
     pub unitID: RFC_UNITID,
 }
 #[test]
@@ -743,8 +748,8 @@ impl Default for _RFC_UNIT_IDENTIFIER {
 }
 pub type RFC_UNIT_IDENTIFIER = _RFC_UNIT_IDENTIFIER;
 #[repr(u32)]
-/// \enum _RFC_UNIT_STATE
-/// \ingroup bgrfc
+/// _RFC_UNIT_STATE
+///
 ///
 /// Used in RfcGetUnitState() for inquiring the processing status of a background Unit that
 /// we (or someone else) sent into this backend.
@@ -761,8 +766,8 @@ pub type RFC_ABAP_NAME = [RFC_CHAR; 31usize];
 pub type RFC_PARAMETER_DEFVALUE = [RFC_CHAR; 31usize];
 pub type RFC_PARAMETER_TEXT = [RFC_CHAR; 80usize];
 #[repr(u32)]
-/// \enum _RFC_CALL_TYPE
-/// \ingroup connection
+/// _RFC_CALL_TYPE
+///
 ///
 /// Used in RfcGetServerContext() for inquiring the type of
 /// an incoming function call from the backend.
@@ -774,21 +779,22 @@ pub enum _RFC_CALL_TYPE {
     RFC_BACKGROUND_UNIT = 3,
 }
 pub use self::_RFC_CALL_TYPE as RFC_CALL_TYPE;
-/// \struct _RFC_SERVER_CONTEXT
-/// \ingroup connection
+
+/// _RFC_SERVER_CONTEXT
+///
 ///
 /// Used in RfcGetServerContext() for obtaining more information about the
 /// current incoming function call.
 #[repr(C)]
 #[derive(Debug, Copy)]
 pub struct _RFC_SERVER_CONTEXT {
-    /// < Specifies the type of function call. Depending on the value of this field, some of the other fields of this struct may be filled.
+    /// Specifies the type of function call. Depending on the value of this field, some of the other fields of this struct may be filled.
     pub type_: RFC_CALL_TYPE,
-    /// < If type is RFC_TRANSACTIONAL or RFC_QUEUED, this field is filled with the 24 digit TID of the tRFC/qRFC unit.
+    /// If type is RFC_TRANSACTIONAL or RFC_QUEUED, this field is filled with the 24 digit TID of the tRFC/qRFC unit.
     pub tid: RFC_TID,
-    /// < If type is RFC_BACKGROUND_UNIT, this pointer is set to the unit identifier of the LUW. Note: the pointer is valid only during the execution context of your server function.
+    /// If type is RFC_BACKGROUND_UNIT, this pointer is set to the unit identifier of the LUW. Note: the pointer is valid only during the execution context of your server function.
     pub unitIdentifier: *mut RFC_UNIT_IDENTIFIER,
-    /// < If type is RFC_BACKGROUND_UNIT, this pointer is set to the unit attributes of the LUW. Note: the pointer is valid only during the execution context of your server function.
+    /// If type is RFC_BACKGROUND_UNIT, this pointer is set to the unit attributes of the LUW. Note: the pointer is valid only during the execution context of your server function.
     pub unitAttributes: *mut RFC_UNIT_ATTRIBUTES,
 }
 #[test]
@@ -826,8 +832,9 @@ impl Default for _RFC_SERVER_CONTEXT {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_SERVER_CONTEXT = _RFC_SERVER_CONTEXT;
-/// \struct _RFC_TYPE_DESC_HANDLE
-/// \ingroup repository
+
+/// _RFC_TYPE_DESC_HANDLE
+///
 ///
 /// Handle to a cached metadata description of a structure or table type.
 #[repr(C)]
@@ -856,8 +863,9 @@ impl Default for _RFC_TYPE_DESC_HANDLE {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_TYPE_DESC_HANDLE = *mut _RFC_TYPE_DESC_HANDLE;
-/// \struct _RFC_FUNCTION_DESC_HANDLE
-/// \ingroup repository
+
+/// _RFC_FUNCTION_DESC_HANDLE
+///
 ///
 /// Handle to a cached metadata description of a function module.
 #[repr(C)]
@@ -888,8 +896,9 @@ impl Default for _RFC_FUNCTION_DESC_HANDLE {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_FUNCTION_DESC_HANDLE = *mut _RFC_FUNCTION_DESC_HANDLE;
-/// \struct _RFC_CLASS_DESC_HANDLE
-/// \ingroup repository
+
+/// _RFC_CLASS_DESC_HANDLE
+///
 ///
 /// Handle to a cached metadata description of a class.
 #[repr(C)]
@@ -918,8 +927,9 @@ impl Default for _RFC_CLASS_DESC_HANDLE {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_CLASS_DESC_HANDLE = *mut _RFC_CLASS_DESC_HANDLE;
-/// \struct RFC_DATA_CONTAINER
-/// \ingroup container
+
+/// RFC_DATA_CONTAINER
+///
 ///
 /// Handle to a general data container (structure, table or function module).
 #[repr(C)]
@@ -946,28 +956,29 @@ impl Default for RFC_DATA_CONTAINER {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type DATA_CONTAINER_HANDLE = *mut RFC_DATA_CONTAINER;
-/// \struct RFC_STRUCTURE_HANDLE
-/// \ingroup container
+/// RFC_STRUCTURE_HANDLE
+///
 ///
 /// Handle to a data container for a structure.
 pub type RFC_STRUCTURE_HANDLE = DATA_CONTAINER_HANDLE;
-/// \struct RFC_FUNCTION_HANDLE
-/// \ingroup container
+/// RFC_FUNCTION_HANDLE
+///
 ///
 /// Handle to a data container for a function module.
 pub type RFC_FUNCTION_HANDLE = DATA_CONTAINER_HANDLE;
-/// \struct RFC_TABLE_HANDLE
-/// \ingroup container
+/// RFC_TABLE_HANDLE
+///
 ///
 /// Handle to a data container for a table.
 pub type RFC_TABLE_HANDLE = DATA_CONTAINER_HANDLE;
-/// \struct RFC_ABAP_OBJECT_HANDLE
-/// \ingroup container
+/// RFC_ABAP_OBJECT_HANDLE
+///
 ///
 /// Handle to a data container for an ABAP object instance.
 pub type RFC_ABAP_OBJECT_HANDLE = DATA_CONTAINER_HANDLE;
-/// \struct _RFC_CONNECTION_HANDLE
-/// \ingroup connection
+
+/// _RFC_CONNECTION_HANDLE
+///
 ///
 /// Handle to an RFC connection (client connection or server connection).
 /// Returned by RfcOpenConnection() or RfcRegisterServer().
@@ -997,8 +1008,9 @@ impl Default for _RFC_CONNECTION_HANDLE {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_CONNECTION_HANDLE = *mut _RFC_CONNECTION_HANDLE;
-/// \struct _RFC_TRANSACTION_HANDLE
-/// \ingroup transaction
+
+/// _RFC_TRANSACTION_HANDLE
+///
 ///
 /// Handle to a data container for a tRFC/qRFC LUW.
 /// Can be filled with several RFC_FUNCTION_HANDLEs.
@@ -1028,8 +1040,9 @@ impl Default for _RFC_TRANSACTION_HANDLE {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_TRANSACTION_HANDLE = *mut _RFC_TRANSACTION_HANDLE;
-/// \struct _RFC_UNIT_HANDLE
-/// \ingroup bgrfc
+
+/// _RFC_UNIT_HANDLE
+///
 ///
 /// Handle to a data container for a bgRFC LUW.
 /// Can be filled with several RFC_FUNCTION_HANDLEs.
@@ -1057,17 +1070,18 @@ impl Default for _RFC_UNIT_HANDLE {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_UNIT_HANDLE = *mut _RFC_UNIT_HANDLE;
-/// \struct _RFC_CONNECTION_PARAMETER
-/// \ingroup connection
+
+/// _RFC_CONNECTION_PARAMETER
+///
 ///
 /// Structure used for connecting to a backend system via RfcOpenConnection() or
 /// RfcRegisterServer(). For a list of supported parameters see these two functions or the file sapnwrfc.ini, which gives a complete list of all possible connection parameters.
 #[repr(C)]
 #[derive(Debug, Copy)]
 pub struct _RFC_CONNECTION_PARAMETER {
-    /// < The name of the connection parameter, like ashost, user, client.
+    /// The name of the connection parameter, like ashost, user, client.
     pub name: *const SAP_UC,
-    /// < The value of the given parameter.
+    /// The value of the given parameter.
     pub value: *const SAP_UC,
 }
 #[test]
@@ -1097,31 +1111,32 @@ impl Default for _RFC_CONNECTION_PARAMETER {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_CONNECTION_PARAMETER = _RFC_CONNECTION_PARAMETER;
-/// \struct _RFC_FIELD_DESC
-/// \ingroup repository
+
+/// _RFC_FIELD_DESC
+///
 ///
 /// Structure for reading (RfcGetFieldDescByIndex() or RfcGetFieldDescByName())
 /// or defining (RfcAddTypeField()) the properties of a field in a structure/table.
 #[repr(C)]
 #[derive(Debug, Copy)]
 pub struct _RFC_FIELD_DESC {
-    /// < Field name, null-terminated string
+    /// Field name, null-terminated string
     pub name: RFC_ABAP_NAME,
-    /// < Field data type
+    /// Field data type
     pub type_: RFCTYPE,
-    /// < Field length in bytes in a 1-byte-per-SAP_CHAR system
+    /// Field length in bytes in a 1-byte-per-SAP_CHAR system
     pub nucLength: ::std::os::raw::c_uint,
-    /// < Field offset in bytes in a 1-byte-per-SAP_CHAR system
+    /// Field offset in bytes in a 1-byte-per-SAP_CHAR system
     pub nucOffset: ::std::os::raw::c_uint,
-    /// < Field length in bytes in a 2-byte-per-SAP_CHAR system
+    /// Field length in bytes in a 2-byte-per-SAP_CHAR system
     pub ucLength: ::std::os::raw::c_uint,
-    /// < Field offset in bytes in a 2-byte-per-SAP_CHAR system
+    /// Field offset in bytes in a 2-byte-per-SAP_CHAR system
     pub ucOffset: ::std::os::raw::c_uint,
-    /// < If the field is of type "packed number" (BCD), this member gives the number of decimals.
+    /// If the field is of type "packed number" (BCD), this member gives the number of decimals.
     pub decimals: ::std::os::raw::c_uint,
-    /// < Pointer to an RFC_STRUCTURE_DESC structure for the nested sub-type if the type field is RFCTYPE_STRUCTURE or RFCTYPE_TABLE */
+    /// Pointer to an RFC_STRUCTURE_DESC structure for the nested sub-type if the type field is RFCTYPE_STRUCTURE or RFCTYPE_TABLE */
     pub typeDescHandle: RFC_TYPE_DESC_HANDLE,
-    /// < Not used by the NW RFC library. This parameter can be used by applications that want to store additional information in the repository (like F4 help values, e.g.).
+    /// Not used by the NW RFC library. This parameter can be used by applications that want to store additional information in the repository (like F4 help values, e.g.).
     pub extendedDescription: *mut ::std::os::raw::c_void,
 }
 #[test]
@@ -1184,8 +1199,8 @@ impl Default for _RFC_FIELD_DESC {
 }
 pub type RFC_FIELD_DESC = _RFC_FIELD_DESC;
 #[repr(u32)]
-/// \enum _RFC_DIRECTION
-/// \ingroup repository
+/// _RFC_DIRECTION
+///
 ///
 /// Used in #RFC_PARAMETER_DESC::direction for specifying the direction of a function module parameter.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
@@ -1196,35 +1211,36 @@ pub enum _RFC_DIRECTION {
     RFC_TABLES = 7,
 }
 pub use self::_RFC_DIRECTION as RFC_DIRECTION;
-/// \struct _RFC_PARAMETER_DESC
-/// \ingroup repository
+
+/// _RFC_PARAMETER_DESC
+///
 ///
 /// Structure for reading (RfcGetParameterDescByIndex() or RfcGetParameterDescByName())
 /// or defining (RfcAddParameter()) the properties of a parameter in a function module.
 #[repr(C)]
 #[derive(Copy)]
 pub struct _RFC_PARAMETER_DESC {
-    /// < Parameter name, null-terminated string
+    /// Parameter name, null-terminated string
     pub name: RFC_ABAP_NAME,
-    /// < Parameter data type
+    /// Parameter data type
     pub type_: RFCTYPE,
-    /// < Specifies whether the parameter is an input, output or bi-directional parameter
+    /// Specifies whether the parameter is an input, output or bi-directional parameter
     pub direction: RFC_DIRECTION,
-    /// < Parameter length in bytes in a 1-byte-per-SAP_CHAR system
+    /// Parameter length in bytes in a 1-byte-per-SAP_CHAR system
     pub nucLength: ::std::os::raw::c_uint,
-    /// < Parameter length in bytes in a 2-byte-per-SAP_CHAR system
+    /// Parameter length in bytes in a 2-byte-per-SAP_CHAR system
     pub ucLength: ::std::os::raw::c_uint,
-    /// < Gives the number of decimals in case or a packed number (BCD)
+    /// Gives the number of decimals in case or a packed number (BCD)
     pub decimals: ::std::os::raw::c_uint,
-    /// < Handle to the structure definition in case this parameter is a structure or table
+    /// Handle to the structure definition in case this parameter is a structure or table
     pub typeDescHandle: RFC_TYPE_DESC_HANDLE,
-    /// < Default value as defined in SE37
+    /// Default value as defined in SE37
     pub defaultValue: RFC_PARAMETER_DEFVALUE,
-    /// < Description text of the parameter as defined in SE37. Null-terminated string.
+    /// Description text of the parameter as defined in SE37. Null-terminated string.
     pub parameterText: RFC_PARAMETER_TEXT,
-    /// < Specifies whether this parameter is defined as optional in SE37. 1 is optional, 0 non-optional
+    /// Specifies whether this parameter is defined as optional in SE37. 1 is optional, 0 non-optional
     pub optional: RFC_BYTE,
-    /// < This field can be used by the application programmer (i.e. you) to store arbitrary extra information.
+    /// This field can be used by the application programmer (i.e. you) to store arbitrary extra information.
     pub extendedDescription: *mut ::std::os::raw::c_void,
 }
 #[test]
@@ -1299,17 +1315,18 @@ impl Default for _RFC_PARAMETER_DESC {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type RFC_PARAMETER_DESC = _RFC_PARAMETER_DESC;
-/// \struct _RFC_EXCEPTION_DESC
-/// \ingroup repository
+
+/// _RFC_EXCEPTION_DESC
+///
 ///
 /// Structure for reading (RfcGetExceptionDescByIndex() or RfcGetExceptionDescByName())
 /// or defining (RfcAddException()) the properties of an exception key in a function module.
 #[repr(C)]
 #[derive(Copy)]
 pub struct _RFC_EXCEPTION_DESC {
-    /// < Exception key
+    /// Exception key
     pub key: [SAP_UC; 128usize],
-    /// < Error message (exception text as defined in SE37)
+    /// Error message (exception text as defined in SE37)
     pub message: [SAP_UC; 512usize],
 }
 #[test]
@@ -1339,8 +1356,8 @@ impl Default for _RFC_EXCEPTION_DESC {
 }
 pub type RFC_EXCEPTION_DESC = _RFC_EXCEPTION_DESC;
 #[repr(u32)]
-/// \enum _RFC_CLASS_ATTRIBUTE_TYPE
-/// \ingroup repository
+/// _RFC_CLASS_ATTRIBUTE_TYPE
+///
 ///
 /// Determines the type of an ABAP Object attribute.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
@@ -1353,37 +1370,38 @@ pub use self::_RFC_CLASS_ATTRIBUTE_TYPE as RFC_CLASS_ATTRIBUTE_TYPE;
 pub type RFC_CLASS_ATTRIBUTE_DEFVALUE = [RFC_CHAR; 31usize];
 pub type RFC_CLASS_NAME = [RFC_CHAR; 31usize];
 pub type RFC_CLASS_ATTRIBUTE_DESCRIPTION = [RFC_CHAR; 512usize];
-/// \struct _RFC_CLASS_ATTRIBUTE_DESC
-/// \ingroup repository
+
+/// _RFC_CLASS_ATTRIBUTE_DESC
+///
 ///
 /// Structure for reading (RfcGetParameterDescByIndex() or RfcGetParameterDescByName())
 /// or defining (RfcAddParameter()) the properties of a parameter in a function module.
 #[repr(C)]
 #[derive(Copy)]
 pub struct _RFC_CLASS_ATTRIBUTE_DESC {
-    /// < Attribute name, null-terminated string
+    /// Attribute name, null-terminated string
     pub name: RFC_ABAP_NAME,
-    /// < Attribute data type
+    /// Attribute data type
     pub type_: RFCTYPE,
-    /// < Attribute length in bytes in a 1-byte-per-SAP_CHAR system
+    /// Attribute length in bytes in a 1-byte-per-SAP_CHAR system
     pub nucLength: ::std::os::raw::c_uint,
-    /// < Attribute length in bytes in a 2-byte-per-SAP_CHAR system
+    /// Attribute length in bytes in a 2-byte-per-SAP_CHAR system
     pub ucLength: ::std::os::raw::c_uint,
-    /// < Gives the number of decimals in case this attribute is a packed number (BCD)
+    /// Gives the number of decimals in case this attribute is a packed number (BCD)
     pub decimals: ::std::os::raw::c_uint,
-    /// < Handle to the structure definition in case this attribute is a structure or table
+    /// Handle to the structure definition in case this attribute is a structure or table
     pub typeDescHandle: RFC_TYPE_DESC_HANDLE,
-    /// < Default value as defined in SE37
+    /// Default value as defined in SE37
     pub defaultValue: RFC_CLASS_ATTRIBUTE_DEFVALUE,
-    /// < Declaring class
+    /// Declaring class
     pub declaringClass: RFC_CLASS_NAME,
-    /// < Attribute description, null terminated, may be null
+    /// Attribute description, null terminated, may be null
     pub description: RFC_CLASS_ATTRIBUTE_DESCRIPTION,
-    /// < This attribute is read only if isReadOnly != 0
+    /// This attribute is read only if isReadOnly != 0
     pub isReadOnly: ::std::os::raw::c_uint,
-    /// < The attribute type tells you, whether this attribute is an instance attribute, a class attribute or a constant.
+    /// The attribute type tells you, whether this attribute is an instance attribute, a class attribute or a constant.
     pub attributeType: RFC_CLASS_ATTRIBUTE_TYPE,
-    /// < This field can be used by the application programmer (i.e. you) to store arbitrary extra information.
+    /// This field can be used by the application programmer (i.e. you) to store arbitrary extra information.
     pub extendedDescription: *mut ::std::os::raw::c_void,
 }
 #[test]
@@ -1562,170 +1580,170 @@ pub type RFC_ON_AUTHORIZATION_CHECK =
                                                errorInfo: *mut RFC_ERROR_INFO)
                               -> RFC_RC>;
 extern "C" {
-    /// \brief  Initialization of internal variables
-/// \ingroup general
-///
-/// Sets up the internal state of the sapnwrfc library and initially reads
-/// and evaluates the sapnwrfc.ini file. In case the content or location of
-/// the sapnwrfc.ini file changes later on, reload it via RfcReloadIniFile().
-/// %RfcInit() no longer needs to be called explicitly. The RFC library does
-/// this automatically on DLL load.
-/// \return RFC_RC
+    /// Initialization of internal variables
+    ///
+    ///
+    /// Sets up the internal state of the sapnwrfc library and initially reads
+    /// and evaluates the sapnwrfc.ini file. In case the content or location of
+    /// the sapnwrfc.ini file changes later on, reload it via RfcReloadIniFile().
+    /// %RfcInit() no longer needs to be called explicitly. The RFC library does
+    /// this automatically on DLL load.
+    /// \return RFC_RC
     pub fn RfcInit() -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Get information about currently loaded sapnwrfc library.
-/// \ingroup general
-///
-/// Fills the provided unsigneds with the SAP release values, e.g. *majorVersion = 7,
-/// *minorVersion = 10, *patchLevel = 42.
-/// \out *majorVersion
-/// \out *minorVersion
-/// \out *patchLevel
-/// \return Version information in string format.
-/// \warning Don't free the returned SAP_UC pointer, it's static memory...
+    /// Get information about currently loaded sapnwrfc library.
+    ///
+    ///
+    /// Fills the provided unsigneds with the SAP release values, e.g. *majorVersion = 7,
+    /// *minorVersion = 10, *patchLevel = 42.
+    /// \out *majorVersion
+    /// \out *minorVersion
+    /// \out *patchLevel
+    /// \return Version information in string format.
+    /// \warning Don't free the returned SAP_UC pointer, it's static memory...
     pub fn RfcGetVersion(majorVersion: *mut ::std::os::raw::c_uint,
                          minorVersion: *mut ::std::os::raw::c_uint,
                          patchLevel: *mut ::std::os::raw::c_uint)
      -> *const SAP_UC;
 }
 extern "C" {
-    /// \brief  Sets the directory in which to search for the sapnwrfc.ini file.
-/// \ingroup general
-///
-/// By default the sapnwrfc library searches for the sapnwrfc.ini in the current
-/// working directory of the process. If you want to keep it in a different directory,
-/// use this function to tell the sapnwrfc library about the new path.
-/// \note After you have changed the directory, the NW RFC lib automatically loads
-/// the contents of the new sapnwrfc.ini file from that directory.
-///
-/// \in *pathName The full (absolute) path of the directory, in which the sapnwrfc
-/// library should look for the sapnwrfc.ini file. A path relative to the current
-/// working directory of the process also works.
-/// \out *errorInfo Detail information in case anything goes wrong.
-/// \return RFC_RC
+    /// Sets the directory in which to search for the sapnwrfc.ini file.
+    ///
+    ///
+    /// By default the sapnwrfc library searches for the sapnwrfc.ini in the current
+    /// working directory of the process. If you want to keep it in a different directory,
+    /// use this function to tell the sapnwrfc library about the new path.
+    /// Note: After you have changed the directory, the NW RFC lib automatically loads
+    /// the contents of the new sapnwrfc.ini file from that directory.
+    ///
+    /// \in *pathName The full (absolute) path of the directory, in which the sapnwrfc
+    /// library should look for the sapnwrfc.ini file. A path relative to the current
+    /// working directory of the process also works.
+    /// \out *errorInfo Detail information in case anything goes wrong.
+    /// \return RFC_RC
     pub fn RfcSetIniPath(pathName: *const SAP_UC,
                          errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Loads the contents of the sapnwrfc.ini file into memory.
-/// \ingroup general
-///
-/// Searches the directory given by RfcSetIniPath() (or the current working directory)
-/// for the file sapnwrfc.ini and loads its contents into memory.
-///
-/// \out *errorInfo Detail information in case anything goes wrong. Note: if a file
-/// with the name sapnwrfc.ini does not exist in the given directory, this is not
-/// considered an error! Default settings are used in this case.
-/// \return RFC_RC
+    /// Loads the contents of the sapnwrfc.ini file into memory.
+    ///
+    ///
+    /// Searches the directory given by RfcSetIniPath() (or the current working directory)
+    /// for the file sapnwrfc.ini and loads its contents into memory.
+    ///
+    /// \out *errorInfo Detail information in case anything goes wrong. Note: if a file
+    /// with the name sapnwrfc.ini does not exist in the given directory, this is not
+    /// considered an error! Default settings are used in this case.
+    /// \return RFC_RC
     pub fn RfcReloadIniFile(errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the current trace level of the specified RFC connection or destination to the new value.
-/// \ingroup general
-///
-/// \note If both of connection and destination are NULL, this function sets the "global"
-/// trace level. See below.
-/// \in connection A handle to a currently open RFC connection (client or server connection).
-/// The new trace level will be effective immediately.
-/// \in *destination Null-terminated string specifying a client or server destination as defined
-/// via a DEST=... entry in sapnwrfc.ini. The new trace level will be used for new connections
-/// to that destination opened after the %RfcSetTraceLevel() call. Already existing connections to
-/// that destination will not be effected.
-/// \in traceLevel The new trace level. Must be between 0 and 3. The meaning of those four values
-/// is as follows:
-/// - 0: Off. Only severe errors are logged to the dev_rfc.trc file.
-/// - 1: Brief. All API calls (except for the setter and getter functions) and important attributes
-/// like codepages, RFC headers, logon parameters are traced. Trace is written to a file named
-/// rfc&lt;pid&gt;.trc or rfc&lt;pid&gt;_&lt;tid&gt;.trc, depending on whether tracing is done
-/// on a "per-process" basis or a "per-thread" basis. &lt;pid&gt; is the current process ID,
-/// &lt;tid&gt; the current thread ID.
-/// - 2: Verbose. In addition to 1, the values of the "scalar" RFC parameters as well as the contents
-/// of the network containers are traced. Scalar parameters are primitive types (CHAR, INT, FLOAT, etc)
-/// and flat structures.
-/// - 3: Full. In addition to 2 the contents of nested structures and tables as well as all API calls
-/// of setter and getter functions are traced.
-/// \out *errorInfo Detail information in case the specified connection or destination does not exist.
-/// \return RFC_OK, RFC_INVALID_HANDLE or RFC_INVALID_PARAMETER
-///
-/// \note In general RFC trace can be activated/deactivated in 6 different ways:
-/// - By setting the parameter RFC_TRACE=[0|1|2|3] in the DEFAULT section of the sapnwrfc.ini file.
-/// This value applies to all destinations, for which no explicit trace level has been set.
-/// ("Global" trace level.)
-/// - By setting the parameter TRACE=[0|1|2|3] in a specific destination section of sapnwrfc.ini.
-/// it applies to that destination only and overrules the "global" trace level from the DEFAULT section.
-/// - By setting the environment variable RFC_TRACE=[0|1|2|3]. This overrules the setting from the
-/// DEFAULT section of sapnwrfc.ini.
-/// - Via %RfcSetTraceLevel(). If connection and destination are NULL, this function sets the global
-/// trace level and overrules the value from the DEFAULT section of sapnwrfc.ini as well as the environment
-/// variable RFC_TRACE. If connection is non-NULL, it sets the trace level for the current connection only,
-/// and if destination is non-NULL, it sets the trace level for that destination, overruling the value from
-/// this destination's section in the sapnwrfc.ini file.
-/// - By passing a {name=TRACE, value=[0|1|2|3]} pair in the RFC_CONNECTION_PARAMETER array used in
-/// RfcOpenConnection(), RfcRegisterServer() or RfcStartServer(). If that RFC_CONNECTION_PARAMETER array
-/// also contains a {name=DEST, value=...} pair, the trace parameter from the array overrules the value
-/// from this destination's sapnwrfc.ini section.
-/// - In case the program is a server program: by activating the trace flag for the corresponding destination
-/// in SM59. The trace setting on backend side is then "inherited" by the external side.
-///
-/// \note For more information on trace settings see the sample sapnwrfc.ini file contained in the demo folder.
+    /// Sets the current trace level of the specified RFC connection or destination to the new value.
+    ///
+    ///
+    /// Note: If both of connection and destination are NULL, this function sets the "global"
+    /// trace level. See below.
+    /// \in connection A handle to a currently open RFC connection (client or server connection).
+    /// The new trace level will be effective immediately.
+    /// \in *destination Null-terminated string specifying a client or server destination as defined
+    /// via a DEST=... entry in sapnwrfc.ini. The new trace level will be used for new connections
+    /// to that destination opened after the %RfcSetTraceLevel() call. Already existing connections to
+    /// that destination will not be effected.
+    /// \in traceLevel The new trace level. Must be between 0 and 3. The meaning of those four values
+    /// is as follows:
+    /// - 0: Off. Only severe errors are logged to the dev_rfc.trc file.
+    /// - 1: Brief. All API calls (except for the setter and getter functions) and important attributes
+    /// like codepages, RFC headers, logon parameters are traced. Trace is written to a file named
+    /// rfc&lt;pid&gt;.trc or rfc&lt;pid&gt;_&lt;tid&gt;.trc, depending on whether tracing is done
+    /// on a "per-process" basis or a "per-thread" basis. &lt;pid&gt; is the current process ID,
+    /// &lt;tid&gt; the current thread ID.
+    /// - 2: Verbose. In addition to 1, the values of the "scalar" RFC parameters as well as the contents
+    /// of the network containers are traced. Scalar parameters are primitive types (CHAR, INT, FLOAT, etc)
+    /// and flat structures.
+    /// - 3: Full. In addition to 2 the contents of nested structures and tables as well as all API calls
+    /// of setter and getter functions are traced.
+    /// \out *errorInfo Detail information in case the specified connection or destination does not exist.
+    /// \return RFC_OK, RFC_INVALID_HANDLE or RFC_INVALID_PARAMETER
+    ///
+    /// Note: In general RFC trace can be activated/deactivated in 6 different ways:
+    /// - By setting the parameter RFC_TRACE=[0|1|2|3] in the DEFAULT section of the sapnwrfc.ini file.
+    /// This value applies to all destinations, for which no explicit trace level has been set.
+    /// ("Global" trace level.)
+    /// - By setting the parameter TRACE=[0|1|2|3] in a specific destination section of sapnwrfc.ini.
+    /// it applies to that destination only and overrules the "global" trace level from the DEFAULT section.
+    /// - By setting the environment variable RFC_TRACE=[0|1|2|3]. This overrules the setting from the
+    /// DEFAULT section of sapnwrfc.ini.
+    /// - Via %RfcSetTraceLevel(). If connection and destination are NULL, this function sets the global
+    /// trace level and overrules the value from the DEFAULT section of sapnwrfc.ini as well as the environment
+    /// variable RFC_TRACE. If connection is non-NULL, it sets the trace level for the current connection only,
+    /// and if destination is non-NULL, it sets the trace level for that destination, overruling the value from
+    /// this destination's section in the sapnwrfc.ini file.
+    /// - By passing a {name=TRACE, value=[0|1|2|3]} pair in the RFC_CONNECTION_PARAMETER array used in
+    /// RfcOpenConnection(), RfcRegisterServer() or RfcStartServer(). If that RFC_CONNECTION_PARAMETER array
+    /// also contains a {name=DEST, value=...} pair, the trace parameter from the array overrules the value
+    /// from this destination's sapnwrfc.ini section.
+    /// - In case the program is a server program: by activating the trace flag for the corresponding destination
+    /// in SM59. The trace setting on backend side is then "inherited" by the external side.
+    ///
+    /// Note: For more information on trace settings see the sample sapnwrfc.ini file contained in the demo folder.
     pub fn RfcSetTraceLevel(connection: RFC_CONNECTION_HANDLE,
                             destination: *mut SAP_UC,
                             traceLevel: ::std::os::raw::c_uint,
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Changes the character encoding to be used in trace files.
-/// \ingroup general
-///
-/// This function has the same effect as the sapnwrfc.ini parameter RFC_TRACE_ENCODING.
-/// See the documentation of that parameter in the sample ini file contained in the
-/// /demo directory of the NW RFC SDK.
-///
-/// \note This API call affects only new trace files that will be opened after the call.
-/// The character encoding of already existing trace files is not changed in order to
-/// prevent confusion and garbage data...
-///
-///
-/// \in *traceEncoding The new encoding. Possible values are "UTF-16", "UTF-8" and
-/// "DEFAULT". On Windows UTF-16 is recommended for faster performance. "DEFAULT" corresponds
-/// to the operating system's default character encoding, which is CP1252 or ISO-8859-1 on
-/// most Windows systems and UTF-8 on most Linux systems.
-/// \out *errorInfo Detail information in case of an invalid traceEncoding input.
-/// \return RFC_RC
+    /// Changes the character encoding to be used in trace files.
+    ///
+    ///
+    /// This function has the same effect as the sapnwrfc.ini parameter RFC_TRACE_ENCODING.
+    /// See the documentation of that parameter in the sample ini file contained in the
+    /// /demo directory of the NW RFC SDK.
+    ///
+    /// Note: This API call affects only new trace files that will be opened after the call.
+    /// The character encoding of already existing trace files is not changed in order to
+    /// prevent confusion and garbage data...
+    ///
+    ///
+    /// \in *traceEncoding The new encoding. Possible values are "UTF-16", "UTF-8" and
+    /// "DEFAULT". On Windows UTF-16 is recommended for faster performance. "DEFAULT" corresponds
+    /// to the operating system's default character encoding, which is CP1252 or ISO-8859-1 on
+    /// most Windows systems and UTF-8 on most Linux systems.
+    /// \out *errorInfo Detail information in case of an invalid traceEncoding input.
+    /// \return RFC_RC
     pub fn RfcSetTraceEncoding(traceEncoding: *mut SAP_UC,
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Changes the directory where the NW RFC lib should write trace files.
-/// \ingroup general
-///
-/// This function has the same effect as the sapnwrfc.ini parameter RFC_TRACE_DIR.
-/// See the documentation of that parameter in the sample ini file contained in the
-/// /demo directory of the NW RFC SDK.
-///
-/// \note This API call affects only new trace files that will be opened after the call.
-/// The directory of already existing trace files is not changed in order to
-/// prevent confusion and garbage data...
-///
-///
-/// \in *traceDir The new directory. Can be an absolute or relative path name.
-/// The directory needs to exist prior to calling this API. The NW RFC lib will not
-/// attempt to create non-existing directories.
-/// \out *errorInfo Detail information in case of an invalid traceEncoding input.
-/// \return RFC_RC
+    /// Changes the directory where the NW RFC lib should write trace files.
+    ///
+    ///
+    /// This function has the same effect as the sapnwrfc.ini parameter RFC_TRACE_DIR.
+    /// See the documentation of that parameter in the sample ini file contained in the
+    /// /demo directory of the NW RFC SDK.
+    ///
+    /// Note: This API call affects only new trace files that will be opened after the call.
+    /// The directory of already existing trace files is not changed in order to
+    /// prevent confusion and garbage data...
+    ///
+    ///
+    /// \in *traceDir The new directory. Can be an absolute or relative path name.
+    /// The directory needs to exist prior to calling this API. The NW RFC lib will not
+    /// attempt to create non-existing directories.
+    /// \out *errorInfo Detail information in case of an invalid traceEncoding input.
+    /// \return RFC_RC
     pub fn RfcSetTraceDir(traceDir: *mut SAP_UC,
                           errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Changes the way the NW RFC lib writes trace files.
-/// \ingroup general
+    /// Changes the way the NW RFC lib writes trace files.
+///
 ///
 /// This function has the same effect as the sapnwrfc.ini parameter RFC_TRACE_TYPE.
 /// See the documentation of that parameter in the sample ini file contained in the
 /// /demo directory of the NW RFC SDK.
 ///
-/// \note This API call closes currently open trace files and then changes to
+/// Note: This API call closes currently open trace files and then changes to
 /// "one file per process" or one "file per thread".
 /// If the NW RFC lib is already using the given trace type, it does nothing.
 ///
@@ -1737,8 +1755,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Converts data in UTF-8 format to SAP_UC strings.
-/// \ingroup general
+    /// Converts data in UTF-8 format to SAP_UC strings.
+///
 ///
 /// \in *utf8 Pointer to UTF-8 data to be converted
 /// \in utf8Length Number of bytes to convert
@@ -1758,8 +1776,8 @@ extern "C" {
                           errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Converts data in SAP_UC format to UTF-8 format
-/// \ingroup general
+    /// Converts data in SAP_UC format to UTF-8 format
+///
 ///
 /// \in *sapuc Pointer to SAP_UC data to be converted
 /// \in sapucLength Number of characters to convert
@@ -1779,8 +1797,8 @@ extern "C" {
                           errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Converts an RFC_RC return code to a human readable string for logging purposes.
-/// \ingroup general
+    /// Converts an RFC_RC return code to a human readable string for logging purposes.
+///
 ///
 /// \in rc Return code to covert to string
 /// \return String representation of the return code
@@ -1788,8 +1806,8 @@ extern "C" {
     pub fn RfcGetRcAsString(rc: RFC_RC) -> *const SAP_UC;
 }
 extern "C" {
-    /// \brief  Converts an RFCTYPE data type indicator to a human readable string for logging purposes.
-/// \ingroup general
+    /// Converts an RFCTYPE data type indicator to a human readable string for logging purposes.
+///
 ///
 /// \in type Data type indicator to convert
 /// \return String representation of the type
@@ -1797,8 +1815,8 @@ extern "C" {
     pub fn RfcGetTypeAsString(type_: RFCTYPE) -> *const SAP_UC;
 }
 extern "C" {
-    /// \brief  Converts an RFC_DIRECTION direction indicator to a human readable string for logging purposes.
-/// \ingroup general
+    /// Converts an RFC_DIRECTION direction indicator to a human readable string for logging purposes.
+///
 ///
 /// \in direction Direction indicator to convert
 /// \return String representation of the direction
@@ -1806,8 +1824,8 @@ extern "C" {
     pub fn RfcGetDirectionAsString(direction: RFC_DIRECTION) -> *const SAP_UC;
 }
 extern "C" {
-    /// \brief  Converts a 2-char SAP language code to the 1-char SAP language code.
-/// \ingroup general
+    /// Converts a 2-char SAP language code to the 1-char SAP language code.
+///
 ///
 /// \in *laiso Pointer to the 2-char array with SAP LAISO code to convert
 /// \out *lang Pointer to the 1 char for SAP SPRAS key
@@ -1818,8 +1836,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Converts a 1-char SAP language key to the 2-char SAP language code.
-/// \ingroup general
+    /// Converts a 1-char SAP language key to the 2-char SAP language code.
+///
 ///
 /// \in *lang Pointer to the 1 char with SAP SPRAS key to convert
 /// \out *laiso Pointer to the 2-char array for SAP LAISO code
@@ -1830,8 +1848,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Opens an RFC client connection for invoking ABAP function modules in an R/3 backend.
-/// \ingroup connection
+    /// Opens an RFC client connection for invoking ABAP function modules in an R/3 backend.
+///
 ///
 /// Opens a client connection to an SAP System. The connectionParams may contain the following name-value pairs:
 /// - client, user, passwd, lang, trace
@@ -1880,8 +1898,8 @@ extern "C" {
      -> RFC_CONNECTION_HANDLE;
 }
 extern "C" {
-    /// \brief  Registers a server connection at an SAP gateway.
-/// \ingroup connection
+    /// Registers a server connection at an SAP gateway.
+///
 ///
 /// The connectionParams may contain the following name-value pairs:
 /// - gwhost, gwserv, program_id, trace, and the parameters for SNC communication as in RfcOpenConnection().
@@ -1908,8 +1926,8 @@ extern "C" {
      -> RFC_CONNECTION_HANDLE;
 }
 extern "C" {
-    /// \brief  Allows a program to be used as an RFC server which is started by the backend on demand.
-/// \ingroup connection
+    /// Allows a program to be used as an RFC server which is started by the backend on demand.
+///
 ///
 /// This API needs to be called, if the server program is to be started by the R/3 application server.
 /// (RFC destination in SM59 of type "T" in startup mode.)
@@ -1947,8 +1965,8 @@ extern "C" {
      -> RFC_CONNECTION_HANDLE;
 }
 extern "C" {
-    /// \brief  Closes an RFC connection
-/// \ingroup connection
+    /// Closes an RFC connection
+///
 ///
 /// Can be used to close client connections as well as server connections, when they are no longer needed.
 ///
@@ -1960,8 +1978,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Checks an RFC connection
-/// \ingroup connection
+    /// Checks an RFC connection
+///
 ///
 /// Can be used to check whether a client/server connection has already been closed,
 /// or whether the NW RFC library still "considers" the connection to be open.
@@ -1981,8 +1999,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  RFC_RC SAP_API RfcResetServerContext
-/// \ingroup connection
+    /// RFC_RC SAP_API RfcResetServerContext
+///
 ///
 /// Resets the SAP server context ("user context / ABAP session context") associated with the given client
 /// connection, but does not close the connection.
@@ -1995,8 +2013,8 @@ extern "C" {
                                  errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Ping the remote communication partner through the passed connection handle.
-/// \ingroup connection
+    /// Ping the remote communication partner through the passed connection handle.
+///
 ///
 /// Sends a ping to the backend in order to check, whether the connection is still alive.
 /// Can be used on both, client connections as well as server connections.
@@ -2010,8 +2028,8 @@ extern "C" {
                    errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns details about the current client or server connection.
-/// \ingroup connection
+    /// Returns details about the current client or server connection.
+///
 ///
 /// Consider that in case you are a server and call RfcListenAndDispatch(), the partner fields
 /// of the attributes will be cleared. The reason is, although we might be only connected to a
@@ -2036,8 +2054,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Inside a server function, returns details about the current execution context.
-/// \ingroup connection
+    /// Inside a server function, returns details about the current execution context.
+///
 ///
 /// See documentation of RFC_SERVER_CONTEXT.
 ///
@@ -2051,8 +2069,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Gets the partner's SSO2 ticket, if any.
-/// \ingroup connection
+    /// Gets the partner's SSO2 ticket, if any.
+///
 ///
 /// Can be used only with a server connection inside the implementation of a server function.
 ///
@@ -2070,8 +2088,8 @@ extern "C" {
                                   errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Gets the partner's SNC name, if any.
-/// \ingroup connection
+    /// Gets the partner's SNC name, if any.
+///
 ///
 ///
 /// \in rfcHandle RFC server connection. If this function is executed on a client connection, RFC_ILLEGAL_STATE will be returned.
@@ -2087,8 +2105,8 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Gets partner's SNC key, if any.
-/// \ingroup connection
+    /// Gets partner's SNC key, if any.
+///
 ///
 ///
 /// \in rfcHandle RFC server connection. If this function is executed on a client connection, RFC_ILLEGAL_STATE will be returned.
@@ -2105,8 +2123,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Converts SNC name to SNC key.
-/// \ingroup connection
+    /// Converts SNC name to SNC key.
+///
 ///
 ///
 /// \in *sncLib Optional: file name of the GSS library to be used for the conversion. If not specified, the
@@ -2125,8 +2143,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Converts SNC key to SNC name.
-/// \ingroup connection
+    /// Converts SNC key to SNC name.
+///
 ///
 ///
 /// \in *sncLib Optional: file name of the GSS library to be used for the conversion. If not specified, the
@@ -2144,8 +2162,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Listens on a server connection handle and waits for incoming RFC calls from the R/3 system.
-/// \ingroup connection
+    /// Listens on a server connection handle and waits for incoming RFC calls from the R/3 system.
+///
 ///
 /// The mechanism for dispatching incoming function calls works as follows:
 /// First %RfcListenAndDispatch() checks, whether for the current combination of R/3 SystemID and function
@@ -2192,8 +2210,8 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Executes a function module in the backend system.
-/// \ingroup connection
+    /// Executes a function module in the backend system.
+///
 ///
 /// The return codes have the following meaning:
 /// - RFC_OK\n		The function call was executed successfully.
@@ -2226,8 +2244,8 @@ extern "C" {
                      errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Retrieves a unique 24-digit transaction ID from the backend.
-/// \ingroup transaction
+    /// Retrieves a unique 24-digit transaction ID from the backend.
+///
 ///
 ///
 /// \in rfcHandle Client connection to a backend.
@@ -2239,8 +2257,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Creates a container for executing a (multi-step) transactional call.
-/// \ingroup transaction
+    /// Creates a container for executing a (multi-step) transactional call.
+///
 ///
 /// If queueName is NULL, tRFC will be used, otherwise qRFC. Use RfcInvokeInTransaction() to
 /// add one (or more) function modules to the transactional call. When sending this transactional
@@ -2258,12 +2276,12 @@ extern "C" {
      -> RFC_TRANSACTION_HANDLE;
 }
 extern "C" {
-    /// \brief  Adds a function module call to a transaction. Can be used multiple times on one tHandle.
-/// \ingroup transaction
+    /// Adds a function module call to a transaction. Can be used multiple times on one tHandle.
+///
 ///
 /// \in tHandle A transaction handle created via RfcCreateTransaction().
 /// \in funcHandle An RFC_FUNCTION_HANDLE, whose IMPORTING, CHANGING and TABLES parameters have been filled.
-/// \note that tRFC/qRFC calls have no return values, so the EXPORTING parameters of this function handle will
+/// Note: that tRFC/qRFC calls have no return values, so the EXPORTING parameters of this function handle will
 /// not be filled, nor will the changes to the CHANGING/TABLES parameters be returned.
 /// \out *errorInfo Actually there is nothing that can go wrong here except for invalid handles and out of memory.
 /// \return RFC_RC
@@ -2272,8 +2290,8 @@ extern "C" {
                                   errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Executes the entire LUW in the backend system as an "atomic unit".
-/// \ingroup transaction
+    /// Executes the entire LUW in the backend system as an "atomic unit".
+///
 ///
 /// This step can be repeated until it finally succeeds (RFC_OK). The transaction handling in the backend
 /// system protects against duplicates (until you remove the TID from the backend's status tables using
@@ -2287,8 +2305,8 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Removes the TID contained in the RFC_TRANSACTION_HANDLE from the backend's ARFCRSTATE table.
-/// \ingroup transaction
+    /// Removes the TID contained in the RFC_TRANSACTION_HANDLE from the backend's ARFCRSTATE table.
+///
 ///
 /// After RfcSubmitTransaction() has finally succeeded, call %RfcConfirmTransaction() to clean up the
 /// transaction handling table in the backend.
@@ -2304,8 +2322,8 @@ extern "C" {
                                  errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Releases the memory of the transaction container.
-/// \ingroup transaction
+    /// Releases the memory of the transaction container.
+///
 ///
 ///
 /// \in tHandle A transaction handle that is no longer needed.
@@ -2315,8 +2333,8 @@ extern "C" {
                                  errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Create a 32 digit bgRFC unit ID.
-/// \ingroup bgrfc
+    /// Create a 32 digit bgRFC unit ID.
+///
 ///
 /// This function fills the given RFC_UNITID with a 32 digit hexadecimal GUID and zero-terminates it.
 /// If you want the GUID to be generated by the backend, pass a valid rfcHandle, if you want the
@@ -2332,8 +2350,8 @@ extern "C" {
                         errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Create a bgRFC unit.
-/// \ingroup bgrfc
+    /// Create a bgRFC unit.
+///
 ///
 /// Creates a data container that can later be filled with one or more function modules comprising the
 /// bgRFC unit. The backend will execute these function modules as an atomic unit.
@@ -2365,14 +2383,14 @@ extern "C" {
                          errorInfo: *mut RFC_ERROR_INFO) -> RFC_UNIT_HANDLE;
 }
 extern "C" {
-    /// \brief  Adds a function module to a bgRFC unit.
-/// \ingroup bgrfc
+    /// Adds a function module to a bgRFC unit.
+///
 ///
 /// Serializes the payload of the function module data container into bgRFC format and inserts
 /// it into the data container for the bgRFC unit. The funcHandle can afterwards be freed
 /// using RfcDestroyFunction(), because the data is copied, not referenced.
 ///
-/// \note Despite the name "invoke", nothing is executed in the backend system, yet!
+/// Note: Despite the name "invoke", nothing is executed in the backend system, yet!
 ///
 ///
 /// \in unitHandle A valid (unsubmitted) bgRFC unit, to which the given function module shall be added.
@@ -2384,8 +2402,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Executes a bgRFC unit in the backend.
-/// \ingroup bgrfc
+    /// Executes a bgRFC unit in the backend.
+///
 ///
 /// Sends the bgRFC unit into the backend, where it will be executed synchronously or persisted
 /// in the given inbound queues and executed asynchronously by the bgRFC scheduler, depending on
@@ -2397,7 +2415,7 @@ extern "C" {
 /// be persisted in the given queues successfully. In order to get information about the processing
 /// status of the unit, use RfcGetUnitState() at a later point.
 ///
-/// \note Despite the name "invoke", nothing is executed in the backend system, yet!
+/// Note: Despite the name "invoke", nothing is executed in the backend system, yet!
 ///
 ///
 /// \in unitHandle A valid (unsubmitted) bgRFC unit, which shall be sent into the backend system.
@@ -2407,8 +2425,8 @@ extern "C" {
                          errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Removes the UID from the backend's status management.
-/// \ingroup bgrfc
+    /// Removes the UID from the backend's status management.
+///
 ///
 /// After RfcSubmitUnit() returned successfully, you should use this function to cleanup
 /// the status information for this unit on backend side. However, be careful: if you have
@@ -2436,8 +2454,8 @@ extern "C" {
                           errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Releases the memory of the bgRFC unit container.
-/// \ingroup bgrfc
+    /// Releases the memory of the bgRFC unit container.
+///
 ///
 ///
 /// \in unitHandle A unit handle that is no longer needed.
@@ -2447,8 +2465,8 @@ extern "C" {
                           errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Retrieves the processing status of the given background unit from the backend system's status management.
-/// \ingroup bgrfc
+    /// Retrieves the processing status of the given background unit from the backend system's status management.
+///
 ///
 ///
 /// \in rfcHandle A connection into the same system, into which the corresponding bgRFC unit
@@ -2464,9 +2482,9 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Installs a callback function of type RFC_SERVER_FUNCTION, which will be triggered when a request for
+    /// Installs a callback function of type RFC_SERVER_FUNCTION, which will be triggered when a request for
 /// the function module corresponding to funcDescHandle comes in from the R/3 system corresponding to sysId.
-/// \ingroup installer
+///
 ///
 /// If you pass NULL as "sysId", the serverFunction will be used for calls from any backend system.
 ///
@@ -2505,9 +2523,9 @@ extern "C" {
                                     errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Installs a generic callback function of type RFC_SERVER_FUNCTION together with a callback
+    /// Installs a generic callback function of type RFC_SERVER_FUNCTION together with a callback
 /// function of type RFC_FUNC_DESC_CALLBACK for obtaining the metadata description of unknown function modules.
-/// \ingroup installer
+///
 ///
 /// The RFC Runtime calls the callback function RFC_SERVER_FUNCTION, if it receives a function call, for whose
 /// function module name no matching callback function has been installed via RfcInstallServerFunction()
@@ -2534,8 +2552,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Installs the necessary callback functions for processing incoming tRFC/qRFC calls.
-/// \ingroup installer
+    /// Installs the necessary callback functions for processing incoming tRFC/qRFC calls.
+///
 ///
 /// These functions need to be implemented by you and will be used by the RFC runtime in the following way:
 /// -# The RFC_ON_CHECK_TRANSACTION function is called when a local transaction is starting. Since a transactional
@@ -2582,8 +2600,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Installs the necessary callback functions for processing incoming bgRFC calls.
-/// \ingroup installer
+    /// Installs the necessary callback functions for processing incoming bgRFC calls.
+///
 ///
 /// These functions need to be implemented by you and will be used by the RFC runtime in the following way:
 /// -# The RFC_ON_CHECK_UNIT function is called when a local background unit is starting. Since a background
@@ -2631,14 +2649,14 @@ extern "C" {
                                    errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Installs the necessary callback functions for processing Extended Passport (EPP) events.
-/// \ingroup installer
+    /// Installs the necessary callback functions for processing Extended Passport (EPP) events.
+///
 ///
 /// Extended Passports is a feature that supersedes Distributed Statistical Records (DSRs).
 /// It allows to track certain performance attributes across system boundaries. These callback functions
 /// allow the application to exchange passports with the backend system. The actual data contained in the
 /// passports, can be processed with the eppslib library.
-/// \note Normal RFC applications should never need to deal with this topic at all...
+/// Note: Normal RFC applications should never need to deal with this topic at all...
 ///
 ///
 /// \in onClientCallStart Pointer to a function of type RFC_PM_CALLBACK. The RFC lib calls this function, before it sends a client request into the backend. Here you can provide the passport that is to be sent along with the RFC request.
@@ -2655,8 +2673,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Installs an optional callback function for processing password change events.
-/// \ingroup installer
+    /// Installs an optional callback function for processing password change events.
+///
 ///
 /// Whenever a logon attempt is made with a user, whose password is still initial, the backend system
 /// challenges this user to change his/her password. If this happens during a call to RfcOpenConnection(),
@@ -2676,8 +2694,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Installs an optional callback function for performing authorization checks on incoming function calls.
-/// \ingroup installer
+    /// Installs an optional callback function for performing authorization checks on incoming function calls.
+///
 ///
 /// After an RFC call arrives at the RFC library, and before the library executes the corresponding
 /// server implementation for that function module, it calls this callback function, if installed.
@@ -2696,8 +2714,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Creates a data container that can be used to execute function calls in the backend via RfcInvoke().
-/// \ingroup container
+    /// Creates a data container that can be used to execute function calls in the backend via RfcInvoke().
+///
 ///
 /// The importing parameters can be set using the RfcSetX functions. After the RfcInvoke() call returned
 /// successfully, the exporting parameters can be read from this data container via the RfcGetX functions.
@@ -2711,8 +2729,8 @@ extern "C" {
      -> RFC_FUNCTION_HANDLE;
 }
 extern "C" {
-    /// \brief  Releases all memory used by the data container.
-/// \ingroup container
+    /// Releases all memory used by the data container.
+///
 ///
 /// \warning Be careful: if you have obtained a handle to a structure (RFC_STRUCTURE_HANDLE) or
 /// table parameter (RFC_TABLE_HANDLE) from that function module, that handle will be invalid afterwards,
@@ -2726,14 +2744,14 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Allows to deactivate certain parameters in the function module interface.
-/// \ingroup container
+    /// Allows to deactivate certain parameters in the function module interface.
+///
 ///
 /// This is particularly useful for BAPIs which have many large tables, in which you are not interested.
 /// Deactivate those and leave only those tables active, in which you are interested. This reduces
 /// network traffic and memory consumption in your application considerably.
 ///
-/// \note This functionality can be used for input and output parameters. If the parameter is an input,
+/// Note: This functionality can be used for input and output parameters. If the parameter is an input,
 /// no data for that parameter will be sent to the backend. If it's an output, the backend will be
 /// informed not to return data for that parameter.
 ///
@@ -2748,8 +2766,8 @@ extern "C" {
                                  errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Query whether a parameter is active.
-/// \ingroup container
+    /// Query whether a parameter is active.
+///
 ///
 /// Useful for example in a server function implementation: Before creating a large table,
 /// you may want to check, whether the client (the backend system), has requested that table at all.
@@ -2765,8 +2783,8 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Creates a data container for a structure.
-/// \ingroup container
+    /// Creates a data container for a structure.
+///
 ///
 ///
 /// \in typeDescHandle The metadata description (blueprint) for the structure to be created.
@@ -2777,8 +2795,8 @@ extern "C" {
      -> RFC_STRUCTURE_HANDLE;
 }
 extern "C" {
-    /// \brief  Clones a sructure including the data in it.
-/// \ingroup container
+    /// Clones a sructure including the data in it.
+///
 ///
 ///
 /// \in srcStructureHandle The structure to clone.
@@ -2789,8 +2807,8 @@ extern "C" {
      -> RFC_STRUCTURE_HANDLE;
 }
 extern "C" {
-    /// \brief  Releases all memory for a particular structure
-/// \ingroup container
+    /// Releases all memory for a particular structure
+///
 ///
 /// \warning Do not call this function on structures, which you have obtained from another data container
 /// (e.g. a function module) via RfcGetStructure(). In that case the memory will be released, when the
@@ -2804,8 +2822,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Creates a data container for a table.
-/// \ingroup container
+    /// Creates a data container for a table.
+///
 ///
 ///
 /// \in typeDescHandle The metadata description (blueprint) for the line type of the table to be created.
@@ -2815,8 +2833,8 @@ extern "C" {
                           errorInfo: *mut RFC_ERROR_INFO) -> RFC_TABLE_HANDLE;
 }
 extern "C" {
-    /// \brief  Clones a table including all the data in it. (Use with care...)
-/// \ingroup container
+    /// Clones a table including all the data in it. (Use with care...)
+///
 ///
 ///
 /// \in srcTableHandle The table to duplicate.
@@ -2826,8 +2844,8 @@ extern "C" {
                          errorInfo: *mut RFC_ERROR_INFO) -> RFC_TABLE_HANDLE;
 }
 extern "C" {
-    /// \brief  Releases the memory of a table and all its lines.
-/// \ingroup container
+    /// Releases the memory of a table and all its lines.
+///
 ///
 /// \warning Be careful: if you still have a reference to a certain table line (an RFC_STRUCTURE_HANDLE you got
 /// from RfcGetCurrentRow() / RfcAppendNewRow() / RfcInsertNewRow()), this handle will be invalid after %RfcDestroyTable()!
@@ -2840,10 +2858,10 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the table row, on which the "table cursor" is currently positioned.
-/// \ingroup container
+    /// Returns the table row, on which the "table cursor" is currently positioned.
 ///
-/// \note that the rows are numbered from 0 to n-1, not from 1 to n, as it's done in ABAP.
+///
+/// Note: that the rows are numbered from 0 to n-1, not from 1 to n, as it's done in ABAP.
 ///
 /// \in tableHandle The table to read data from.
 /// \out *errorInfo If the table cursor is not on a valid position.
@@ -2854,8 +2872,8 @@ extern "C" {
      -> RFC_STRUCTURE_HANDLE;
 }
 extern "C" {
-    /// \brief  Appends a new empty row at the end of the table and moves the table cursor to that row.
-/// \ingroup container
+    /// Appends a new empty row at the end of the table and moves the table cursor to that row.
+///
 ///
 ///
 /// \in tableHandle The table to enlarge.
@@ -2866,8 +2884,8 @@ extern "C" {
      -> RFC_STRUCTURE_HANDLE;
 }
 extern "C" {
-    /// \brief  Appends a set of new empty rows at the end of the table and moves the table cursor to the first new row.
-/// \ingroup container
+    /// Appends a set of new empty rows at the end of the table and moves the table cursor to the first new row.
+///
 ///
 ///
 /// \in tableHandle The table to enlarge.
@@ -2879,8 +2897,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Inserts a new empty row at the current position of the table cursor.
-/// \ingroup container
+    /// Inserts a new empty row at the current position of the table cursor.
+///
 ///
 /// The row, on which the table cursor is currently positioned, and all following rows are moved
 /// one index "down". E.g. if the table currently has rows nos 0 - n-1 and the cursor points to row i,
@@ -2895,8 +2913,8 @@ extern "C" {
      -> RFC_STRUCTURE_HANDLE;
 }
 extern "C" {
-    /// \brief  Appends an existing row to the end of the table and moves the table cursor to that row.
-/// \ingroup container
+    /// Appends an existing row to the end of the table and moves the table cursor to that row.
+///
 ///
 ///
 /// \in tableHandle The table to enlarge.
@@ -2908,8 +2926,8 @@ extern "C" {
                         errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Inserts an existing row at the current position of the table cursor.
-/// \ingroup container
+    /// Inserts an existing row at the current position of the table cursor.
+///
 ///
 /// The row, on which the table cursor is currently positioned, and all following rows are moved
 /// one index "down". E.g. if the table currently has rows nos 0 - n-1 and the cursor points to row i,
@@ -2925,8 +2943,8 @@ extern "C" {
                         errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Deletes the row, on which the table cursor is currently positioned.
-/// \ingroup container
+    /// Deletes the row, on which the table cursor is currently positioned.
+///
 ///
 /// If the row cursor is currently at an index i between 0 - n-2, then row i will be deleted and the
 /// rows i+1 - n-1 will be moved on index "up", e.g. will now be rows i - n-2. The table cursor will
@@ -2942,8 +2960,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Deletes all rows from the table.
-/// \ingroup container
+    /// Deletes all rows from the table.
+///
 ///
 ///
 /// \in tableHandle The table to clear.
@@ -2953,8 +2971,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Positions the table cursor at the first row (or at index "-1", if the table is empty).
-/// \ingroup container
+    /// Positions the table cursor at the first row (or at index "-1", if the table is empty).
+///
 ///
 ///
 /// \in tableHandle A table.
@@ -2964,8 +2982,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Positions the table cursor at the last row (or at index "-1", if the table is empty).
-/// \ingroup container
+    /// Positions the table cursor at the last row (or at index "-1", if the table is empty).
+///
 ///
 ///
 /// \in tableHandle A table.
@@ -2975,8 +2993,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Increments the table cursor by one.
-/// \ingroup container
+    /// Increments the table cursor by one.
+///
 ///
 ///
 /// \in tableHandle A table.
@@ -2986,8 +3004,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Decrements the table cursor by one.
-/// \ingroup container
+    /// Decrements the table cursor by one.
+///
 ///
 ///
 /// \in tableHandle A table.
@@ -2997,8 +3015,8 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the table cursor to a specific index.
-/// \ingroup container
+    /// Sets the table cursor to a specific index.
+///
 ///
 ///
 /// \in tableHandle A table.
@@ -3010,8 +3028,8 @@ extern "C" {
                      errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the number of rows in a table.
-/// \ingroup container
+    /// Returns the number of rows in a table.
+///
 ///
 ///
 /// \in tableHandle A table.
@@ -3023,8 +3041,8 @@ extern "C" {
                           errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns a type description handle describing the line type (metadata) of this table.
-/// \ingroup container
+    /// Returns a type description handle describing the line type (metadata) of this table.
+///
 ///
 ///
 /// \in tableHandle A table.
@@ -3035,8 +3053,8 @@ extern "C" {
      -> RFC_TYPE_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Creates an ABAP object handle with the given class description handle.
-/// \ingroup container
+    /// Creates an ABAP object handle with the given class description handle.
+///
 ///
 /// \in classDescHandle   class description handle.
 /// \out *errorInfo  Contains more information, for example if memory runs out (code = RFC_MEMORY_INSUFFICIENT).
@@ -3046,8 +3064,8 @@ extern "C" {
      -> RFC_ABAP_OBJECT_HANDLE;
 }
 extern "C" {
-    /// \brief  Destroys an ABAP object handle.
-/// \ingroup container
+    /// Destroys an ABAP object handle.
+///
 ///
 /// \in objHandle    ABAP object handle to be destroyed.
 /// \out *errorInfo  Should always return successfully.
@@ -3056,8 +3074,8 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as char array.
-/// \ingroup container
+    /// Returns the value of the specified field as char array.
+///
 ///
 /// The charBuffer will be filled with a string representation of the given field. The remaining
 /// places in the buffer will be filled with trailing spaces. In case the buffer is too small,
@@ -3069,7 +3087,7 @@ extern "C" {
 /// If "name" specifies a field of type INT4 with the value 4711 and charBuffer is an SAP_CHAR[10],
 /// then the buffer will be filled as follows: "4711      ".
 ///
-/// \note If the target field has type BYTE or XSTRING, the bytes will be
+/// Note: If the target field has type BYTE or XSTRING, the bytes will be
 /// converted to a hex encoded string representation.
 ///
 /// - RFCTYPE_CHAR
@@ -3098,8 +3116,8 @@ extern "C" {
                        errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as char array.
-/// \ingroup container
+    /// Returns the value of the specified field as char array.
+///
 ///
 /// This function works exactly like RfcGetChars(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3120,8 +3138,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as num-char array (digits only).
-/// \ingroup container
+    /// Returns the value of the specified field as num-char array (digits only).
+///
 ///
 /// The charBuffer will be filled with a string representation of the field (from right to left).
 /// The remaining places in the buffer will be filled with leading zero digits. In case
@@ -3155,8 +3173,8 @@ extern "C" {
                      errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as num-char array (digits only).
-/// \ingroup container
+    /// Returns the value of the specified field as num-char array (digits only).
+///
 ///
 /// This function works exactly like RfcGetNum(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3177,8 +3195,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads a DATE field.
-/// \ingroup container
+    /// Reads a DATE field.
+///
 ///
 ///
 /// \in dataHandle A data container (function handle, structure handle or table handle). If dataHandle
@@ -3192,8 +3210,8 @@ extern "C" {
                       errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads a DATE field.
-/// \ingroup container
+    /// Reads a DATE field.
+///
 ///
 /// This function works exactly like RfcGetDate(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3212,8 +3230,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads a TIME field.
-/// \ingroup container
+    /// Reads a TIME field.
+///
 ///
 ///
 /// \in dataHandle A data container (function handle, structure handle or table handle). If dataHandle
@@ -3227,8 +3245,8 @@ extern "C" {
                       errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads a TIME field.
-/// \ingroup container
+    /// Reads a TIME field.
+///
 ///
 /// This function works exactly like RfcGetTime(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3247,8 +3265,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as null-terminated string.
-/// \ingroup container
+    /// Returns the value of the specified field as null-terminated string.
+///
 ///
 /// The charBuffer will be filled with a null-terminated string representation of the field value.
 /// In case the buffer is too small, e.g. no place for string termination, the function will
@@ -3262,7 +3280,7 @@ extern "C" {
 /// If "name" specifies a field of type INT4 with the value 4711 and stringBuffer is an SAP_UC[10],
 /// then the buffer will be filled as follows: "4711\0xxxxx". (x: left unchanged.)
 ///
-/// \note If the target field has type BYTE or XSTRING, the bytes will be
+/// Note: If the target field has type BYTE or XSTRING, the bytes will be
 /// converted to a hex encoded string representation.
 ///
 /// - RFCTYPE_CHAR
@@ -3295,8 +3313,8 @@ extern "C" {
                         errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as null-terminated string.
-/// \ingroup container
+    /// Returns the value of the specified field as null-terminated string.
+///
 ///
 /// This function works exactly like RfcGetString(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3321,8 +3339,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as byte array.
-/// \ingroup container
+    /// Returns the value of the specified field as byte array.
+///
 ///
 /// Should mainly be used with fields of type RAW (RFCTYPE_BYTE), but also works with
 /// a number of other data types. In case of numerical data types it simply gives the
@@ -3360,8 +3378,8 @@ extern "C" {
                        errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as byte array.
-/// \ingroup container
+    /// Returns the value of the specified field as byte array.
+///
 ///
 /// This function works exactly like RfcGetBytes(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3382,8 +3400,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as byte array.
-/// \ingroup container
+    /// Returns the value of the specified field as byte array.
+///
 ///
 /// In case the buffer is too small, the function will return RFC_BUFFER_TOO_SMALL.
 /// xstringLength contains the number of written bytes, or the required number of bytes
@@ -3424,8 +3442,8 @@ extern "C" {
                          errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as byte array.
-/// \ingroup container
+    /// Returns the value of the specified field as byte array.
+///
 ///
 /// This function works exactly like RfcGetXString(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3449,8 +3467,8 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as RFC_INT (signed).
-/// \ingroup container
+    /// Returns the value of the specified field as RFC_INT (signed).
+///
 ///
 /// If the field is a character type, an "atoi-like" conversion is performed. If the field is of type
 /// RFCTYPE_BYTE/RFCTYPE_XSTRING, this function interprets the bytes in big-endian byte order when
@@ -3478,8 +3496,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the specified field as RFC_INT (signed).
-/// \ingroup container
+    /// Returns the value of the specified field as RFC_INT (signed).
+///
 ///
 /// This function works exactly like RfcGetInt(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3498,8 +3516,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of a field as an unsigned one byte integer.
-/// \ingroup container
+    /// Returns the value of a field as an unsigned one byte integer.
+///
 ///
 /// The current field value must not be bigger than 255, otherwise you'll get an RFC_CONVERSION_ERROR.
 /// If the field is of type RFCTYPE_BYTE/RFCTYPE_XSTRING, the field length must be 1 byte.
@@ -3523,8 +3541,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of a field as an unsigned one byte integer.
-/// \ingroup container
+    /// Returns the value of a field as an unsigned one byte integer.
+///
 ///
 /// This function works exactly like RfcGetInt1(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3543,8 +3561,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the field value as a signed two byte integer.
-/// \ingroup container
+    /// Returns the field value as a signed two byte integer.
+///
 ///
 /// The current field value must be between -32768 and 32767, otherwise you'll get an RFC_CONVERSION_ERROR.
 /// If the field is of type RFCTYPE_BYTE/RFCTYPE_XSTRING, the field length must be 1 or 2 bytes.
@@ -3568,8 +3586,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the field value as a signed two byte integer.
-/// \ingroup container
+    /// Returns the field value as a signed two byte integer.
+///
 ///
 /// This function works exactly like RfcGetInt2(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3588,8 +3606,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the given field as an RFC_FLOAT.
-/// \ingroup container
+    /// Returns the value of the given field as an RFC_FLOAT.
+///
 ///
 /// The field specified by name needs to be of one of the following data types:
 /// - RFCTYPE_FLOAT
@@ -3607,8 +3625,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the value of the given field as an RFC_FLOAT.
-/// \ingroup container
+    /// Returns the value of the given field as an RFC_FLOAT.
+///
 ///
 /// This function works exactly like RfcGetFloat(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3627,8 +3645,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the field as an 8 byte IEEE 754r decimal floating point.
-/// \ingroup container
+    /// Returns the field as an 8 byte IEEE 754r decimal floating point.
+///
 ///
 /// See the header sapdecf.h for how to work with RFC_DECF16 objects. If the field has a binary
 /// data type, its field length needs to be 8 bytes.
@@ -3659,8 +3677,8 @@ extern "C" {
                         errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the field as an 8 byte IEEE 754r decimal floating point.
-/// \ingroup container
+    /// Returns the field as an 8 byte IEEE 754r decimal floating point.
+///
 ///
 /// This function works exactly like RfcGetDecF16(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3679,8 +3697,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the field as a 16 byte IEEE 754r decimal floating point.
-/// \ingroup container
+    /// Returns the field as a 16 byte IEEE 754r decimal floating point.
+///
 ///
 /// See the header sapdecf.h for how to work with RFC_DECF16 objects. If the field has a binary
 /// data type, its field length needs to be 16 bytes.
@@ -3711,8 +3729,8 @@ extern "C" {
                         errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the field as a 16 byte IEEE 754r decimal floating point.
-/// \ingroup container
+    /// Returns the field as a 16 byte IEEE 754r decimal floating point.
+///
 ///
 /// This function works exactly like RfcGetDecF34(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3731,8 +3749,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns a handle to a structure.
-/// \ingroup container
+    /// Returns a handle to a structure.
+///
 ///
 /// The field specified by name must be of type RFCTYPE_STRUCTURE. If that field has not yet
 /// been accessed/filled previously, a new empty structure is created from the metadata of the
@@ -3754,8 +3772,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns a handle to a structure.
-/// \ingroup container
+    /// Returns a handle to a structure.
+///
 ///
 /// This function works exactly like RfcGetStructure(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3774,8 +3792,8 @@ extern "C" {
                                   errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns a handle to a table.
-/// \ingroup container
+    /// Returns a handle to a table.
+///
 ///
 /// The field specified by name must be of type RFCTYPE_TABLE. If that field has not yet
 /// been accessed/filled previously, a new empty structure is created from the metadata of the
@@ -3796,8 +3814,8 @@ extern "C" {
                        errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns a handle to a table.
-/// \ingroup container
+    /// Returns a handle to a table.
+///
 ///
 /// This function works exactly like RfcGetTable(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3816,8 +3834,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns a handle to an abap object.
-/// \ingroup container
+    /// Returns a handle to an abap object.
+///
 ///
 /// The field specified by name must be of type RFCTYPE_ABAPOBJECT. If that field has not yet
 /// been filled previously, NULL is returned.
@@ -3838,8 +3856,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns a handle to an abap object.
-/// \ingroup container
+    /// Returns a handle to an abap object.
+///
 ///
 /// This function works exactly like RfcGetAbapObject(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3858,8 +3876,8 @@ extern "C" {
                                    errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the length of the value of a STRING or XSTRING parameter.
-/// \ingroup container
+    /// Returns the length of the value of a STRING or XSTRING parameter.
+///
 ///
 /// The field specified by name must be of type RFCTYPE_STRING or RFCTYPE_XSTRING. If that field is
 /// of type STRING, the returned length is measured in characters, otherwise in bytes.
@@ -3877,8 +3895,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the length of the value of a STRING or XSTRING parameter.
-/// \ingroup container
+    /// Returns the length of the value of a STRING or XSTRING parameter.
+///
 ///
 /// This function works exactly like RfcGetStringLength(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3899,8 +3917,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the given char value (charValue/valueLength) into the field.
-/// \ingroup container
+    /// Sets the given char value (charValue/valueLength) into the field.
+///
 ///
 /// The field specified by name needs to be of one of the following data types:
 /// - RFCTYPE_CHAR
@@ -3914,7 +3932,7 @@ extern "C" {
 /// - RFCTYPE_DECFxx
 /// - RFCTYPE_BYTE
 /// - RFCTYPE_XSTRING
-/// \note If the target field is a numerical type, the RFC library tries to convert the string
+/// Note: If the target field is a numerical type, the RFC library tries to convert the string
 /// to a number. If the target field has type BYTE or XSTRING, the char value will be interpreted as
 /// hex encoded string representation of the bytes. Its length needs to be even in that case.\n
 /// Example: the 8 characters "CAFEBABE" will be converted to 4 bytes 0xCA 0xFE 0xBA 0xBE.
@@ -3936,10 +3954,10 @@ extern "C" {
                        errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the given char value (charValue/valueLength) into the field.
-/// \ingroup container
+    /// Sets the given char value (charValue/valueLength) into the field.
 ///
-/// This function works exactly like RfcSetChars(), the difference being that the field is
+///
+/// This function works exactly like `RfcSetChars`, the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
 /// last field has index n-1, the order of the fields is as defined in the ABAP DDIC.
 ///
@@ -3958,8 +3976,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of a NUMC field.
-/// \ingroup container
+    /// Sets the value of a NUMC field.
+///
 ///
 /// The target field needs to be of type RFCTYPE_NUM.
 ///
@@ -3976,8 +3994,8 @@ extern "C" {
                      errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of a NUMC field.
-/// \ingroup container
+    /// Sets the value of a NUMC field.
+///
 ///
 /// This function works exactly like RfcSetNum(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -3998,8 +4016,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the given string value (stringValue/valueLength) into the field.
-/// \ingroup container
+    /// Sets the given string value (stringValue/valueLength) into the field.
+///
 ///
 /// The field specified by name needs to be of one of the following data types:
 /// - RFCTYPE_CHAR
@@ -4013,7 +4031,7 @@ extern "C" {
 /// - RFCTYPE_DECFxx
 /// - RFCTYPE_BYTE
 /// - RFCTYPE_XSTRING
-/// \note If the target field is a numerical type, the RFC library tries to convert the string
+/// Note: If the target field is a numerical type, the RFC library tries to convert the string
 /// to a number. If the target field has type BYTE or XSTRING, the char value will be interpreted as
 /// hex encoded string representation of the bytes. Its length needs to be even in that case.\n
 /// Example: the 8 characters "CAFEBABE" will be converted to 4 bytes 0xCA 0xFE 0xBA 0xBE.
@@ -4035,8 +4053,8 @@ extern "C" {
                         errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the given string value (stringValue/valueLength) into the field.
-/// \ingroup container
+    /// Sets the given string value (stringValue/valueLength) into the field.
+///
 ///
 /// This function works exactly like RfcSetString(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4057,8 +4075,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of a DATE field.
-/// \ingroup container
+    /// Sets the value of a DATE field.
+///
 ///
 /// The target field needs to be of type RFCTYPE_DATE.
 ///
@@ -4073,8 +4091,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of a DATE field.
-/// \ingroup container
+    /// Sets the value of a DATE field.
+///
 ///
 /// This function works exactly like RfcSetDate(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4093,8 +4111,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of a TIME field.
-/// \ingroup container
+    /// Sets the value of a TIME field.
+///
 ///
 /// The target field needs to be of type RFCTYPE_TIME.
 ///
@@ -4110,8 +4128,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of a TIME field.
-/// \ingroup container
+    /// Sets the value of a TIME field.
+///
 ///
 /// This function works exactly like RfcSetTime(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4130,8 +4148,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the given byte value (byteValue/valueLength) into the field.
-/// \ingroup container
+    /// Sets the given byte value (byteValue/valueLength) into the field.
+///
 ///
 /// The field specified by name needs to be of one of the following data types:
 /// - RFCTYPE_BYTE
@@ -4164,8 +4182,8 @@ extern "C" {
                        errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the given byte value (byteValue/valueLength) into the field.
-/// \ingroup container
+    /// Sets the given byte value (byteValue/valueLength) into the field.
+///
 ///
 /// This function works exactly like RfcSetBytes(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4186,8 +4204,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the given byte value (byteValue/valueLength) into the field.
-/// \ingroup container
+    /// Sets the given byte value (byteValue/valueLength) into the field.
+///
 ///
 /// The field specified by name needs to be of one of the following data types:
 /// - RFCTYPE_BYTE
@@ -4220,8 +4238,8 @@ extern "C" {
                          errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the given byte value (byteValue/valueLength) into the field.
-/// \ingroup container
+    /// Sets the given byte value (byteValue/valueLength) into the field.
+///
 ///
 /// This function works exactly like RfcSetXString(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4242,8 +4260,8 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of an INT4 field.
-/// \ingroup container
+    /// Sets the value of an INT4 field.
+///
 ///
 /// The target field needs to be of type RFCTYPE_INT.
 ///
@@ -4258,8 +4276,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of an INT4 field.
-/// \ingroup container
+    /// Sets the value of an INT4 field.
+///
 ///
 /// This function works exactly like RfcSetInt(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4277,8 +4295,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of an INT1 field.
-/// \ingroup container
+    /// Sets the value of an INT1 field.
+///
 ///
 /// The target field needs to be of type RFCTYPE_INT1.
 ///
@@ -4293,8 +4311,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of an INT1 field.
-/// \ingroup container
+    /// Sets the value of an INT1 field.
+///
 ///
 /// This function works exactly like RfcSetInt1(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4312,8 +4330,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of an INT2 field.
-/// \ingroup container
+    /// Sets the value of an INT2 field.
+///
 ///
 /// The target field needs to be of type RFCTYPE_INT2.
 ///
@@ -4328,8 +4346,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of an INT2 field.
-/// \ingroup container
+    /// Sets the value of an INT2 field.
+///
 ///
 /// This function works exactly like RfcSetInt2(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4347,8 +4365,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets a floating point field.
-/// \ingroup container
+    /// Sets a floating point field.
+///
 ///
 /// The field specified by name needs to be of one of the following data types:
 /// - RFCTYPE_FLOAT
@@ -4358,7 +4376,7 @@ extern "C" {
 /// - RFCTYPE_NUM
 /// - RFCTYPE_DECF16
 /// - RFCTYPE_DECF34
-/// \note If the target field is CHAR or STRING, the value will be converted to a string in
+/// Note: If the target field is CHAR or STRING, the value will be converted to a string in
 /// scientific notation. If it is NUMC, it will be truncated to the next integer.
 ///
 /// \in dataHandle A data container (function handle, structure handle or table handle). If dataHandle
@@ -4372,8 +4390,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets a floating point field.
-/// \ingroup container
+    /// Sets a floating point field.
+///
 ///
 /// This function works exactly like RfcSetFloat(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4391,8 +4409,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of an 8 byte decfloat object into a field.
-/// \ingroup container
+    /// Sets the value of an 8 byte decfloat object into a field.
+///
 ///
 /// The field specified by name needs to be of one of the following data types:
 /// - RFCTYPE_DECF16
@@ -4407,7 +4425,7 @@ extern "C" {
 /// - RFCTYPE_STRING
 /// - RFCTYPE_BYTE     Needs to be 8 byte long.
 /// - RFCTYPE_XSTRING
-/// \note If the target field is CHAR or STRING, the value will be converted to a string in
+/// Note: If the target field is CHAR or STRING, the value will be converted to a string in
 /// scientific notation. If it is NUMC, it will be truncated to the next integer.
 ///
 /// \in dataHandle A data container (function handle, structure handle or table handle). If dataHandle
@@ -4421,8 +4439,8 @@ extern "C" {
                         errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of an 8 byte decfloat object into a field.
-/// \ingroup container
+    /// Sets the value of an 8 byte decfloat object into a field.
+///
 ///
 /// This function works exactly like RfcSetDecF16(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4441,8 +4459,8 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of a 16 byte decfloat object into a field.
-/// \ingroup container
+    /// Sets the value of a 16 byte decfloat object into a field.
+///
 ///
 /// The field specified by name needs to be of one of the following data types:
 /// - RFCTYPE_DECF16
@@ -4457,7 +4475,7 @@ extern "C" {
 /// - RFCTYPE_STRING
 /// - RFCTYPE_BYTE     Needs to be 8 byte long.
 /// - RFCTYPE_XSTRING
-/// \note If the target field is CHAR or STRING, the value will be converted to a string in
+/// Note: If the target field is CHAR or STRING, the value will be converted to a string in
 /// scientific notation. If it is NUMC, it will be truncated to the next integer.
 ///
 /// \in dataHandle A data container (function handle, structure handle or table handle). If dataHandle
@@ -4471,8 +4489,8 @@ extern "C" {
                         errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the value of a 16 byte decfloat object into a field.
-/// \ingroup container
+    /// Sets the value of a 16 byte decfloat object into a field.
+///
 ///
 /// This function works exactly like RfcSetDecF34(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4491,12 +4509,12 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Copies the given structure into the target structure of the parent container.
-/// \ingroup container
+    /// Copies the given structure into the target structure of the parent container.
+///
 ///
 /// The target field needs to be of type RFCTYPE_STRUCTURE.
 ///
-/// \note If you want to avoid the copy operation, use RfcGetStructure() and set the subfields here,
+/// Note: If you want to avoid the copy operation, use RfcGetStructure() and set the subfields here,
 /// instead of the sequence RfcCreateStructure()/ setting the subfields/ #RfcSetStructure().
 ///
 /// \in dataHandle A data container (function handle, structure handle or table handle). If dataHandle
@@ -4510,8 +4528,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Copies the given structure into the target structure of the parent container.
-/// \ingroup container
+    /// Copies the given structure into the target structure of the parent container.
+///
 ///
 /// This function works exactly like RfcSetStructure(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4530,12 +4548,12 @@ extern "C" {
                                   errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Copies the given table into the target table of the parent container.
-/// \ingroup container
+    /// Copies the given table into the target table of the parent container.
+///
 ///
 /// The target field needs to be of type RFCTYPE_TABLE.
 ///
-/// \note If you want to avoid the copy operation, use RfcGetTable() and set the subfields here,
+/// Note: If you want to avoid the copy operation, use RfcGetTable() and set the subfields here,
 /// instead of the sequence RfcCreateTable()/ setting the subfields/ #RfcSetTable().
 ///
 /// \in dataHandle A data container (function handle, structure handle or table handle). If dataHandle
@@ -4549,8 +4567,8 @@ extern "C" {
                        errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Copies the given table into the target table of the parent container.
-/// \ingroup container
+    /// Copies the given table into the target table of the parent container.
+///
 ///
 /// This function works exactly like RfcSetTable(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4569,12 +4587,12 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Copies the object into the target object of the parent container.
-/// \ingroup container
+    /// Copies the object into the target object of the parent container.
+///
 ///
 /// The target field needs to be of type RFCTYPE_ABAPOBJECT.
 ///
-/// \note If you want to avoid the copy operation, use RfcGetAbapObject() and if the instance already exists set the subfields here,
+/// Note: If you want to avoid the copy operation, use RfcGetAbapObject() and if the instance already exists set the subfields here,
 /// instead of the sequence RfcCreateAbapObject()/ setting the subfields/ #RfcSetAbapObject().
 ///
 /// \in dataHandle A data container (function handle, structure handle, table handle or object handle). If dataHandle
@@ -4589,8 +4607,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Copies the object into the target object of the parent container.
-/// \ingroup container
+    /// Copies the object into the target object of the parent container.
+///
 ///
 /// This function works exactly like RfcSetAbapObject(), the difference being that the field is
 /// addressed by its index within the structure/table/function module. The first field has index 0,
@@ -4609,8 +4627,8 @@ extern "C" {
                                    errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Gets the ABAP exception object handle from the given function handle.
-/// \ingroup container
+    /// Gets the ABAP exception object handle from the given function handle.
+///
 ///
 /// If a call to #RfcInvoke() returned RFC_ABAP_CLASS_EXCEPTION, the RFC client calls this function afterwards with the original function handle
 /// in order to get access to the details of the class exception.
@@ -4622,8 +4640,8 @@ extern "C" {
      -> RFC_ABAP_OBJECT_HANDLE;
 }
 extern "C" {
-    /// \brief  Sets the ABAP exception object handle to the given function handle.
-/// \ingroup container
+    /// Sets the ABAP exception object handle to the given function handle.
+///
 ///
 /// If an RFC server function wants to throw an ABAP class exception, it calls this function before it returns with RFC_ABAP_CLASS_EXCEPTION.
 /// \in funcHandle   Function module data container .
@@ -4637,8 +4655,8 @@ extern "C" {
                                     errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the metadata description for the given function module.
-/// \ingroup container
+    /// Returns the metadata description for the given function module.
+///
 ///
 ///
 /// \in funcHandle A function module.
@@ -4649,8 +4667,8 @@ extern "C" {
      -> RFC_FUNCTION_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Returns the metadata description of the given structure or table (RFC_STRUCTURE_HANDLE or RFC_TABLE_HANDLE).
-/// \ingroup container
+    /// Returns the metadata description of the given structure or table (RFC_STRUCTURE_HANDLE or RFC_TABLE_HANDLE).
+///
 ///
 ///
 /// \in dataHandle A structure or table.
@@ -4662,8 +4680,8 @@ extern "C" {
      -> RFC_TYPE_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Returns the function description that is valid for the system to which rfcHandle points to.
-/// \ingroup repository
+    /// Returns the function description that is valid for the system to which rfcHandle points to.
+///
 ///
 /// If the function description is already in the repository cache for that system ID, it will be
 /// returned immediately (from the cache), otherwise it will be looked up in the system's DDIC using
@@ -4683,8 +4701,8 @@ extern "C" {
      -> RFC_FUNCTION_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Looks for a cached function description.
-/// \ingroup repository
+    /// Looks for a cached function description.
+///
 ///
 /// This API should be used with care and is only for special scenarios, for example:
 /// 1. You know for sure, that a function description has already been cached via RfcGetFunctionDesc(),
@@ -4706,8 +4724,8 @@ extern "C" {
      -> RFC_FUNCTION_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Adds a function description to the cache for the specified R/3 System.
-/// \ingroup repository
+    /// Adds a function description to the cache for the specified R/3 System.
+///
 ///
 /// This API should be used with care and is only for special scenarios, e.g. if you want to
 /// write an RFC server that offers function modules, which do not exist in the R/3 system's DDIC.
@@ -4724,8 +4742,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Removes a function description from the cache for the specified R/3 System.
-/// \ingroup repository
+    /// Removes a function description from the cache for the specified R/3 System.
+///
 ///
 /// This API can be used, e.g. if the signature (imports, exports, etc.) of a function module has
 /// been changed in the backend, while the external RFC program is still running. If the RFC library
@@ -4745,8 +4763,8 @@ extern "C" {
                                  errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the structure description that is valid for the system to which rfcHandle points to.
-/// \ingroup repository
+    /// Returns the structure description that is valid for the system to which rfcHandle points to.
+///
 ///
 /// If the structure description is already in the repository cache for that system ID, it will be
 /// returned immediately (from the cache), otherwise it will be looked up in the system's DDIC using
@@ -4754,7 +4772,7 @@ extern "C" {
 ///
 /// The RFC Runtime maintains a cache for every R/3 System ID, as the meta data could be different
 /// from R/3 release to R/3 release.
-/// \note Normally it should not be necessary to lookup separate structure descriptions. They are
+/// Note: Normally it should not be necessary to lookup separate structure descriptions. They are
 /// already looked up as part of the function module, in which they are used.
 ///
 /// \in rfcHandle Open client connection to the R/3 System, for which you need the structure description.
@@ -4767,8 +4785,8 @@ extern "C" {
      -> RFC_TYPE_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Looks for a cached structure/table description.
-/// \ingroup repository
+    /// Looks for a cached structure/table description.
+///
 ///
 /// Similar to RfcGetTypeDesc(), but it only looks into the cache. Again it should almost never
 /// be necessary to get a metadata description of a single structure.
@@ -4784,8 +4802,8 @@ extern "C" {
      -> RFC_TYPE_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Adds a type description to the cache.
-/// \ingroup repository
+    /// Adds a type description to the cache.
+///
 ///
 ///
 /// \in *repositoryID System ID of R/3 System, to whose cache you want to add the type description,
@@ -4798,8 +4816,8 @@ extern "C" {
                           errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Removes a type description from the cache.
-/// \ingroup repository
+    /// Removes a type description from the cache.
+///
 ///
 ///
 /// \in *repositoryID System ID of R/3 System, from whose cache you want to remove the type description,
@@ -4812,8 +4830,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the class description that is valid for the system to which rfcHandle points to.
-/// \ingroup repository
+    /// Returns the class description that is valid for the system to which rfcHandle points to.
+///
 ///
 /// If the class description is already in the repository cache for that system ID, it will be
 /// returned immediately (from the cache), otherwise it will be looked up in the system's DDIC using
@@ -4833,8 +4851,8 @@ extern "C" {
      -> RFC_CLASS_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Looks for a cached class description.
-/// \ingroup repository
+    /// Looks for a cached class description.
+///
 ///
 /// This API should be used with care and is only for special scenarios, for example:
 /// 1. You know for sure, that a class description has already been cached via RfcGetClassDesc(),
@@ -4856,8 +4874,8 @@ extern "C" {
      -> RFC_CLASS_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Returns the metadata description of the given ABAP object handle.
-/// \ingroup container
+    /// Returns the metadata description of the given ABAP object handle.
+///
 ///
 ///
 /// \in objectHandle An ABAP object.
@@ -4868,8 +4886,8 @@ extern "C" {
      -> RFC_CLASS_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Adds a class description to the cache for the specified R/3 System.
-/// \ingroup repository
+    /// Adds a class description to the cache for the specified R/3 System.
+///
 ///
 /// This API should be used with care and is only for special scenarios, e.g. if you want to
 /// write an RFC server that offers/uses classes, which do not exist in the R/3 system's DDIC.
@@ -4886,8 +4904,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Removes a class description from the cache for the specified R/3 System.
-/// \ingroup repository
+    /// Removes a class description from the cache for the specified R/3 System.
+///
 ///
 /// If repositoryID is NULL, the description is added to the "default repository".
 ///
@@ -4902,8 +4920,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Creates an empty type description with the given name.
-/// \ingroup structure
+    /// Creates an empty type description with the given name.
+///
 ///
 /// API for creating hard-coded metadata descriptions, e.g. for function modules that
 /// don't exist in the R/3 backend.
@@ -4926,10 +4944,10 @@ extern "C" {
      -> RFC_TYPE_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Adds a new field to the type description.
-/// \ingroup structure
+    /// Adds a new field to the type description.
 ///
-/// \note After a type description has been used (e.g. via RfcCreateStructure(), RfcCreateTable() or
+///
+/// Note: After a type description has been used (e.g. via RfcCreateStructure(), RfcCreateTable() or
 /// RfcAddTypeDesc()), it can no longer be modified!
 ///
 /// \in typeHandle
@@ -4941,8 +4959,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the total byte length of the type description.
-/// \ingroup structure
+    /// Sets the total byte length of the type description.
+///
 ///
 /// Before a type description can be used, this function needs to be called.
 /// The RFC library does not automatically calculate the correct length based on
@@ -4968,8 +4986,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the name of the type.
-/// \ingroup structure
+    /// Returns the name of the type.
+///
 ///
 ///
 /// \in typeHandle The type description.
@@ -4981,8 +4999,8 @@ extern "C" {
                           errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the number of fields in a structure definition.
-/// \ingroup structure
+    /// Returns the number of fields in a structure definition.
+///
 ///
 ///
 /// \in typeHandle The type description.
@@ -4994,8 +5012,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads the field description of the structure's ith field.
-/// \ingroup structure
+    /// Reads the field description of the structure's ith field.
+///
 ///
 /// Useful mostly when looping over the fields of a structure.
 ///
@@ -5010,8 +5028,8 @@ extern "C" {
                                   errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads the field description of a field given by name.
-/// \ingroup structure
+    /// Reads the field description of a field given by name.
+///
 ///
 ///
 /// \in typeHandle The type description.
@@ -5025,8 +5043,8 @@ extern "C" {
                                  errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the total byte length of a structure definition.
-/// \ingroup structure
+    /// Returns the total byte length of a structure definition.
+///
 ///
 ///
 /// \in typeHandle The type description.
@@ -5040,8 +5058,8 @@ extern "C" {
                             errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Deletes the type description and releases the allocated resources.
-/// \ingroup structure
+    /// Deletes the type description and releases the allocated resources.
+///
 ///
 /// Only descriptions, which are not stored in a repository cache and not used by the application, can be deleted.
 /// Deleting a cached description will cause an error, and deleting a description that is still in use, will lead
@@ -5055,8 +5073,8 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Creates an empty function description with the given name.
-/// \ingroup function
+    /// Creates an empty function description with the given name.
+///
 ///
 /// Add parameter descriptions and exception descriptions to the new RFC_FUNCTION_DESC_HANDLE
 /// via RfcAddParameter() and RfcAddException().\n
@@ -5071,8 +5089,8 @@ extern "C" {
      -> RFC_FUNCTION_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Returns a function module's DDIC name.
-/// \ingroup function
+    /// Returns a function module's DDIC name.
+///
 ///
 ///
 /// \in funcDesc The function module description.
@@ -5084,10 +5102,10 @@ extern "C" {
                               errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Adds a new parameter (IMPORTING, EXPORTING, CHANGING, TABLES) to the function description.
-/// \ingroup function
+    /// Adds a new parameter (IMPORTING, EXPORTING, CHANGING, TABLES) to the function description.
 ///
-/// \note After the function description has been used via RfcCreateFunction() or RfcAddFunctionDesc(),
+///
+/// Note: After the function description has been used via RfcCreateFunction() or RfcAddFunctionDesc(),
 /// it can no longer be modified!
 ///
 /// \in funcDesc The function module description.
@@ -5099,8 +5117,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the number of parameters in the function module definition.
-/// \ingroup function
+    /// Returns the number of parameters in the function module definition.
+///
 ///
 ///
 /// \in funcDesc The function module's metadata description.
@@ -5112,10 +5130,10 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads the metadata description of the function module's ith parameter.
-/// \ingroup function
+    /// Reads the metadata description of the function module's ith parameter.
 ///
-/// \note Mostly be useful when looping over all parameters of a function module.
+///
+/// Note: Mostly be useful when looping over all parameters of a function module.
 ///
 /// \in funcDesc The function module's metadata description.
 /// \in index The index of the parameter to describe.
@@ -5129,8 +5147,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads the metadata description of a function module parameter given by name.
-/// \ingroup function
+    /// Reads the metadata description of a function module parameter given by name.
+///
 ///
 ///
 /// \in funcDesc The function module's metadata description.
@@ -5145,10 +5163,10 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Adds a new ABAP Exception to the function description.
-/// \ingroup function
+    /// Adds a new ABAP Exception to the function description.
 ///
-/// \note After the function description has been used via RfcCreateFunction() or RfcAddFunctionDesc(),
+///
+/// Note: After the function description has been used via RfcCreateFunction() or RfcAddFunctionDesc(),
 /// it can no longer be modified!
 ///
 ///
@@ -5161,8 +5179,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the number of ABAP Exceptions of the function module.
-/// \ingroup function
+    /// Returns the number of ABAP Exceptions of the function module.
+///
 ///
 ///
 /// \in funcDesc The function module's metadata description.
@@ -5174,8 +5192,8 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads the metadata description of the function module's ith ABAP Exception.
-/// \ingroup function
+    /// Reads the metadata description of the function module's ith ABAP Exception.
+///
 ///
 ///
 /// \in funcDesc The function module's metadata description.
@@ -5190,8 +5208,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads the metadata description of a function module's ABAP Exception given by name.
-/// \ingroup function
+    /// Reads the metadata description of a function module's ABAP Exception given by name.
+///
 ///
 ///
 /// \in funcDesc The function module's metadata description.
@@ -5206,8 +5224,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Enables this function module for the basXML serialization format.
-/// \ingroup function
+    /// Enables this function module for the basXML serialization format.
+///
 ///
 /// R/3 Systems from kernel release 7.10 on support a new serialization format: basXML (binary ABAP serialization).
 /// Calling %RfcEnableBASXML() allows the RFC library to transport this function module's data via the
@@ -5220,8 +5238,8 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns whether this function module has been enabled for basXML.
-/// \ingroup function
+    /// Returns whether this function module has been enabled for basXML.
+///
 ///
 /// See RfcEnableBASXML()
 ///
@@ -5244,8 +5262,8 @@ extern "C" {
                                   errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Enables this function handle for ABAP class exception support.
-/// \ingroup function
+    /// Enables this function handle for ABAP class exception support.
+///
 ///
 /// R/3 Systems from kernel release 7.11 on support ABAP class exceptions.
 /// Calling %RfcEnableAbapClassException() allows an RFC client to inform the ABAP backend that it can handle ABAP class exceptions
@@ -5266,8 +5284,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Checks whether this function handle has been enabled for ABAP class exception support.
-/// \ingroup function
+    /// Checks whether this function handle has been enabled for ABAP class exception support.
+///
 ///
 /// R/3 Systems from kernel release 7.11 on support ABAP class exception.
 /// Typically, an RFC server can use this function in order to find out, whether the function module currently being processed has
@@ -5284,8 +5302,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Creates an empty class description with the given name.
-/// \ingroup class
+    /// Creates an empty class description with the given name.
+///
 ///
 /// Add attribute descriptions to the new RFC_CLASS_DESC_HANDLE via RfcAddAttribute().\n
 ///
@@ -5299,8 +5317,8 @@ extern "C" {
      -> RFC_CLASS_DESC_HANDLE;
 }
 extern "C" {
-    /// \brief  Returns the class's DDIC name.
-/// \ingroup class
+    /// Returns the class's DDIC name.
+///
 ///
 ///
 /// \in classDesc The class description.
@@ -5312,10 +5330,10 @@ extern "C" {
                            errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Adds a new attribute (field, structure, table, method) to the class description.
-/// \ingroup class
+    /// Adds a new attribute (field, structure, table, method) to the class description.
 ///
-/// \note After the function description has been used via RfcCreateAbapObject() or RfcAddClassDesc(),
+///
+/// Note: After the function description has been used via RfcCreateAbapObject() or RfcAddClassDesc(),
 /// it can no longer be modified!
 ///
 /// \in classDesc The class description.
@@ -5327,8 +5345,8 @@ extern "C" {
                                 errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the number of parameters in the function module definition.
-/// \ingroup class
+    /// Returns the number of parameters in the function module definition.
+///
 ///
 ///
 /// \in classDesc The class description.
@@ -5341,10 +5359,10 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads the metadata description of the class attribute.
-/// \ingroup class
+    /// Reads the metadata description of the class attribute.
 ///
-/// \note Is useful mostly when looping over all attributes of a class.
+///
+/// Note: Is useful mostly when looping over all attributes of a class.
 ///
 /// \in classDesc The class metadata description.
 /// \in index The index of the attributes to describe.
@@ -5359,8 +5377,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Reads the metadata description of a class attribute given by name.
-/// \ingroup class
+    /// Reads the metadata description of a class attribute given by name.
+///
 ///
 ///
 /// \in classDesc The class metadata description.
@@ -5376,8 +5394,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the parent classes of the given class.
-/// \ingroup class
+    /// Returns the parent classes of the given class.
+///
 ///
 /// \in classDesc The class metadata description.
 /// \in name The parent class name.
@@ -5390,8 +5408,8 @@ extern "C" {
                                     errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the number of parent classes of the given class.
-/// \ingroup class
+    /// Returns the number of parent classes of the given class.
+///
 ///
 ///
 /// \in classDesc The class metadata description.
@@ -5404,8 +5422,8 @@ extern "C" {
                                     errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Sets the parent classes of the given class.
-/// \ingroup class
+    /// Sets the parent classes of the given class.
+///
 ///
 ///
 /// \in classDesc The class metadata description.
@@ -5417,8 +5435,8 @@ extern "C" {
                              errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the implemented interfaces of the given class.
-/// \ingroup class
+    /// Returns the implemented interfaces of the given class.
+///
 ///
 ///
 /// \in classDesc The class metadata description.
@@ -5433,8 +5451,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the number of parent interfaces of the given class.
-/// \ingroup class
+    /// Returns the number of parent interfaces of the given class.
+///
 ///
 ///
 /// \in classDesc The class metadata description.
@@ -5448,8 +5466,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Adds an interface to the list of implemented interfaces of the given class.
-/// \ingroup class
+    /// Adds an interface to the list of implemented interfaces of the given class.
+///
 ///
 ///
 /// \in classDesc The class metadata description.
@@ -5462,8 +5480,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Deletes the class description and releases the allocated resources.
-/// \ingroup class
+    /// Deletes the class description and releases the allocated resources.
+///
 ///
 /// Only descriptions, which are not stored in a repository cache and not used by the application, can be deleted.
 /// Deleting a cached description will cause an error, and deleting a description that is still in use, will lead
@@ -5477,8 +5495,9 @@ extern "C" {
                                errorInfo: *mut RFC_ERROR_INFO) -> RFC_RC;
 }
 pub type RFC_METADATA_QUERY_RESULT_HANDLE = *mut ::std::os::raw::c_void;
-/// \struct _RFC_METADATA_QUERY_RESULT_ENTRY
-/// \ingroup repository
+
+/// _RFC_METADATA_QUERY_RESULT_ENTRY
+///
 ///
 /// Structure containing the error that occurred during the metadata query.
 #[repr(C)]
@@ -5518,8 +5537,8 @@ impl Default for _RFC_METADATA_QUERY_RESULT_ENTRY {
 }
 pub type RFC_METADATA_QUERY_RESULT_ENTRY = _RFC_METADATA_QUERY_RESULT_ENTRY;
 #[repr(u32)]
-/// \enum _RFC_METADATA_OBJ_TYPE
-/// \ingroup repository
+/// _RFC_METADATA_OBJ_TYPE
+///
 ///
 /// An RFC_METADATA_OBJ_TYPE indicates whether in a call to RfcGetMetadataQueryFailedEntry() or RfcGetMetadataQuerySucceededEntry()
 /// you are interested in the error/success message for a function module (_FUNCTION), structure/table (_TYPE) or ABAP Class (_CLASS).
@@ -5532,8 +5551,8 @@ pub enum _RFC_METADATA_OBJ_TYPE {
 }
 pub use self::_RFC_METADATA_OBJ_TYPE as RFC_METADATA_OBJ_TYPE;
 extern "C" {
-    /// \brief  Creates the metadata query result
-/// \ingroup repository
+    /// Creates the metadata query result
+///
 ///
 /// Metadata query results contain the names of functions, types and classes queried successfully, and the corresponding
 /// errors, if the query failed.
@@ -5544,8 +5563,8 @@ extern "C" {
      -> RFC_METADATA_QUERY_RESULT_HANDLE;
 }
 extern "C" {
-    /// \brief  Destroys the metadata query result
-/// \ingroup repository
+    /// Destroys the metadata query result
+///
 ///
 /// Releases all resources allocated by the metadata query result.
 ///
@@ -5558,8 +5577,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Describes the metadata query result
-/// \ingroup repository
+    /// Describes the metadata query result
+///
 ///
 /// Returns the number of succeeded and failed entries in the metadata query result. The entries' content can be read with
 /// RfcGetMetadataQueryFailedEntry() and RfcGetMetadataQuerySucceededEntry().
@@ -5580,8 +5599,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns the error entry from the metadata query result
-/// \ingroup repository
+    /// Returns the error entry from the metadata query result
+///
 ///
 /// Returns the object name and the error text, if an error occurred during the query.
 ///
@@ -5602,8 +5621,8 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Returns a succeeded entry from the metadata query result
-/// \ingroup repository
+    /// Returns a succeeded entry from the metadata query result
+///
 ///
 /// Returns the object name of a successfully queried object.
 ///
@@ -5623,13 +5642,13 @@ extern "C" {
      -> RFC_RC;
 }
 extern "C" {
-    /// \brief  Queries the meta data for function, type and class lists.
-/// \ingroup repository
+    /// Queries the meta data for function, type and class lists.
+///
 ///
 /// Queries the meta data for function, type and class lists. All meta data is fetched using one roundtrip,
 /// the result is cached in the repository cache.
 ///
-/// \note You can use this feature only, if your backend system supports it. SAP Note 1456826 describes the
+/// Note: You can use this feature only, if your backend system supports it. SAP Note 1456826 describes the
 /// required minimum support package level that the backend system must have. If the backend system supports
 /// it, open the RFC_CONNECTION_HANDLE with the additional logon parameter USE_REPOSITORY_ROUNDTRIP_OPTIMIZATION=1,
 /// before you pass it to %RfcMetadataBatchQuery().

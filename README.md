@@ -11,7 +11,9 @@ There are already some other bindings to this SDK:
  
  ## implemented features
  
-It may be able to connect to your SAP system. It may delete all your data. It may eat your dogs homework. No warrenty.  
+It may be able to connect to your SAP system. It may delete all your data. It may eat your dogs homework. No warrenty.
+
+There are some [docs](https://uniorg-solutions.github.io/rust-sapnwrfc/doc/sapnwrfc/binding/index.html). They may be up to date. 
 
 ## open questions
 

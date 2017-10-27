@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate error_chain;
 
-mod binding;
+pub mod binding;
 mod errors;
 mod function_desc;
 mod function;
