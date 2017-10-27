@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `RfcGetCachedFunctionDesc` fn in crate `sapnwrfc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RfcGetCachedFunctionDesc">
+
+    <title>sapnwrfc::binding::RfcGetCachedFunctionDesc - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc fn">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a></p><script>window.sidebarCurrent = {name: 'RfcGetCachedFunctionDesc', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a>::<wbr><a class="fn" href=''>RfcGetCachedFunctionDesc</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#4721-4724' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub unsafe extern &quot;C&quot; fn RfcGetCachedFunctionDesc(<br>&nbsp;&nbsp;&nbsp;&nbsp;repositoryID: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*const </a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;funcName: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*const </a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;errorInfo: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.RFC_ERROR_INFO.html" title="type sapnwrfc::binding::RFC_ERROR_INFO">RFC_ERROR_INFO</a><br>) -&gt; <a class="type" href="../../sapnwrfc/binding/type.RFC_FUNCTION_DESC_HANDLE.html" title="type sapnwrfc::binding::RFC_FUNCTION_DESC_HANDLE">RFC_FUNCTION_DESC_HANDLE</a></pre><div class='docblock'><p>Looks for a cached function description.</p>
+
+<p>This API should be used with care and is only for special scenarios, for example:
+1. You know for sure, that a function description has already been cached via RfcGetFunctionDesc(),
+and don&#39;t want to open an extra rfcHandle that will never be used.
+In this case simply use the SAP System ID as the repositoryID.
+2. You have created a hard-coded repository via RfcAddFunctionDesc(), which contains function modules
+that do not exist in the backend&#39;s DDIC.</p>
+
+<p>If repositoryID is NULL, the &quot;default repository&quot; is used.</p>
+
+<p>\in *repositoryID System ID of R/3 System, for which this function module description has been cached,
+or NULL in case you want to look for it in the default repository.
+\in *funcName Name of the function module.
+\out *errorInfo Requested function name not in cache?
+\return The requested function description.</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "sapnwrfc";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

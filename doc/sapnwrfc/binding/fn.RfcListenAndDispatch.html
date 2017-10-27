@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `RfcListenAndDispatch` fn in crate `sapnwrfc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RfcListenAndDispatch">
+
+    <title>sapnwrfc::binding::RfcListenAndDispatch - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc fn">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a></p><script>window.sidebarCurrent = {name: 'RfcListenAndDispatch', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a>::<wbr><a class="fn" href=''>RfcListenAndDispatch</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#2208-2210' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub unsafe extern &quot;C&quot; fn RfcListenAndDispatch(<br>&nbsp;&nbsp;&nbsp;&nbsp;rfcHandle: <a class="type" href="../../sapnwrfc/binding/type.RFC_CONNECTION_HANDLE.html" title="type sapnwrfc::binding::RFC_CONNECTION_HANDLE">RFC_CONNECTION_HANDLE</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;timeout: <a class="type" href="https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html" title="type std::os::raw::c_int">c_int</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;errorInfo: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.RFC_ERROR_INFO.html" title="type sapnwrfc::binding::RFC_ERROR_INFO">RFC_ERROR_INFO</a><br>) -&gt; <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">RFC_RC</a></pre><div class='docblock'><p>Listens on a server connection handle and waits for incoming RFC calls from the R/3 system.</p>
+
+<p>The mechanism for dispatching incoming function calls works as follows:
+First %RfcListenAndDispatch() checks, whether for the current combination of R/3 SystemID and function
+module name a callback function has been installed via RfcInstallServerFunction(). If not, it checks,
+whether a callback function for SystemID=NULL has been installed via RfcInstallServerFunction().If not,
+it checks, whether a global callback function has been installed via RfcInstallGenericServerFunction().</p>
+
+<p>If a callback function has been found, the RFC call will be dispatched to that function for processing,
+and %RfcListenAndDispatch() returns the return code of the callback function.
+Otherwise %RfcListenAndDispatch() returns a SYSTEM_FAILURE to the R/3 backend and the return code
+RFC_NOT_FOUND to the caller.</p>
+
+<p>In general the return codes of %RfcListenAndDispatch() have the following meaning:
+- RFC_OK\n      A function call was processed successfully.
+- RFC_RETRY\n   No function call came in within the specified timeout period. (&quot;timeout&quot; is given in seconds.)
+- RFC_ABAP_EXCEPTION\n  A function call was processed and ended with a defined ABAP Exception, which has
+been returned to the backend.</p>
+
+<p>In the above three cases &quot;rfcHandle&quot; is still open and can be used to listen for the next request.</p>
+
+<ul>
+<li>RFC_ABAP_MESSAGE\n    A function call was started to be processed, but was aborted with an ABAP A-, E- or X-Message.
+The message parameters have been returned to the backend (and can be evaluated there via
+the sy-msgid, sy-msgtype, sy-msgno, sy-msgv1, ..., sy-msgv4 parameters).</li>
+<li>RFC_EXTERNAL_FAILURE\n    A function call was started to be processed, but was aborted with a &quot;SYSTEM_FAILURE&quot;,
+which has been returned to the backend.</li>
+<li>RFC_COMMUNICATION_FAILURE\n   The connection broke down while processing the function call. No response
+has been sent to the backend.</li>
+<li>RFC_CLOSED\n  The connection has been closed by the backend side (SMGW, SM04). No response
+has been sent to the backend.</li>
+<li>RFC_NOT_FOUND\n   No handler has been found for the current function module name. A SYSTEM_FAILURE has
+been returned to the R/3 backend.</li>
+</ul>
+
+<p>In these five cases the connection has been closed, so the &quot;rfcHandle&quot; needs to be refreshed via RfcRegisterServer.</p>
+
+<ul>
+<li>RFC_INVALID_HANDLE\n  &quot;rfcHandle&quot; is invalid or points to a connection that has already been closed.</li>
+</ul>
+
+<p>\in rfcHandle Server connection on which to listen for incoming requests.
+\in timeout Number of seconds to wait for an incoming request.
+\out *errorInfo Additional error information.
+\return RFC_RC</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "sapnwrfc";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

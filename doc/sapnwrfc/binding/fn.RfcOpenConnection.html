@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `RfcOpenConnection` fn in crate `sapnwrfc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RfcOpenConnection">
+
+    <title>sapnwrfc::binding::RfcOpenConnection - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc fn">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a></p><script>window.sidebarCurrent = {name: 'RfcOpenConnection', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a>::<wbr><a class="fn" href=''>RfcOpenConnection</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#1894-1898' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub unsafe extern &quot;C&quot; fn RfcOpenConnection(<br>&nbsp;&nbsp;&nbsp;&nbsp;connectionParams: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*const </a><a class="type" href="../../sapnwrfc/binding/type.RFC_CONNECTION_PARAMETER.html" title="type sapnwrfc::binding::RFC_CONNECTION_PARAMETER">RFC_CONNECTION_PARAMETER</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;paramCount: <a class="type" href="https://doc.rust-lang.org/nightly/std/os/raw/type.c_uint.html" title="type std::os::raw::c_uint">c_uint</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;errorInfo: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.RFC_ERROR_INFO.html" title="type sapnwrfc::binding::RFC_ERROR_INFO">RFC_ERROR_INFO</a><br>) -&gt; <a class="type" href="../../sapnwrfc/binding/type.RFC_CONNECTION_HANDLE.html" title="type sapnwrfc::binding::RFC_CONNECTION_HANDLE">RFC_CONNECTION_HANDLE</a></pre><div class='docblock'><p>Opens an RFC client connection for invoking ABAP function modules in an R/3 backend.</p>
+
+<p>Opens a client connection to an SAP System. The connectionParams may contain the following name-value pairs:
+- client, user, passwd, lang, trace</p>
+
+<p>and additionally one of
+-# Direct application server logon: ashost, sysnr.
+-# Logon with load balancing: mshost, msserv, sysid, group.\n
+msserv is needed only, if the service of the message server is
+not defined as sapms<SYSID> in /etc/services.</p>
+
+<p>When logging on with SNC, user&amp;passwd are to be replaced by
+- snc_qop, snc_myname, snc_partnername and optionally snc_lib.</p>
+
+<p>(If snc_lib is not specified, the RFC library uses the &quot;global&quot; GSS library
+defined via environment variable SNC_LIB.)</p>
+
+<p>When logging on with SSO Ticket, you can use mysapsso2 instead of user&amp;passwd.
+The old SSO format (mysapsso) is no longer supported.</p>
+
+<p>Alternatively the connection parameters can be defined in the config file
+sapnwrfc.ini. In this case you just pass the parameter dest=... and all
+parameters that are missing in the sapnwrfc.ini entry into %RfcOpenConnection().</p>
+
+<p>For a complete list of logon parameters to be used in connectionParams as well as in the
+sapnwrfc.ini file, see the sample sapnwrfc.ini file in the SDK&#39;s demo folder.</p>
+
+<p>If the logon was ok, %RfcOpenConnection() returns a client connection handle, which can be used in RfcInvoke().
+Otherwise the return value is NULL and errorInfo contains a detailed error description.
+errorInfo-&gt;code will be one of:
+- RFC_INVALID_PARAMETER         One of the connectionParams was invalid
+- RFC_COMMUNICATION_FAILURE     Something is wrong with the network or network settings
+- RFC_LOGON_FAILURE             Invalid user/password/ticket/certificate
+- RFC_ABAP_RUNTIME_FAILURE      Something is wrong with the R/3 backend
+- RFC_MEMORY_INSUFFICIENT       A malloc failed when trying to allocate a temporary buffer</p>
+
+<p>\in *connectionParams An array of RFC_CONNECTION_PARAMETERs with the names as described above
+and the values as necessary in your landscape.
+\in paramCount Number of parameters in the above array.
+\out *errorInfo Returns more error details, if the connect attempt fails.
+\return A handle to an RFC client connection that can be used for invoking ABAP function modules in the backend.</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "sapnwrfc";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

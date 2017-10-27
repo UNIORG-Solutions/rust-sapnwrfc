@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["binding",""]],"struct":[["Connection",""],["ConnectionBuilder",""],["FunctionDescription","the way to receive information about a sap function module"],["SapString","provides transformation to and from saps ucs2 (utf16) string encoding."]]});

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `_RFC_ERROR_INFO` struct in crate `sapnwrfc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, _RFC_ERROR_INFO">
+
+    <title>sapnwrfc::binding::_RFC_ERROR_INFO - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Struct _RFC_ERROR_INFO</p><div class="block items"><ul><li><a href="#fields">Fields</a></li><li><a href="#implementations">Trait Implementations</a></li></ul></div><p class='location'><a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a></p><script>window.sidebarCurrent = {name: '_RFC_ERROR_INFO', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a>::<wbr><a class="struct" href=''>_RFC_ERROR_INFO</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#237-260' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'><div class="docblock attributes">#[repr(C)]
+</div>pub struct _RFC_ERROR_INFO {
+    pub code: <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">RFC_RC</a>,
+    pub group: <a class="enum" href="../../sapnwrfc/binding/enum._RFC_ERROR_GROUP.html" title="enum sapnwrfc::binding::_RFC_ERROR_GROUP">RFC_ERROR_GROUP</a>,
+    pub key: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 128]</a>,
+    pub message: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 512]</a>,
+    pub abapMsgClass: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 21]</a>,
+    pub abapMsgType: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 2]</a>,
+    pub abapMsgNumber: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.RFC_NUM.html" title="type sapnwrfc::binding::RFC_NUM">RFC_NUM</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 4]</a>,
+    pub abapMsgV1: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 51]</a>,
+    pub abapMsgV2: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 51]</a>,
+    pub abapMsgV3: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 51]</a>,
+    pub abapMsgV4: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 51]</a>,
+}</pre><div class='docblock'><p>_RFC_ERROR_INFO</p>
+
+<p>Used in all functions of the NW RFC library to return detailed information about
+an error that has just occurred. This can be an error that the communication partner
+sent back to us, an error that occurred in the network layer or operating system,
+an internal error in the NW RFC library or an error that the application programmer
+(i.e. you) has committed...</p>
+
+<p>Within a server function implementation, the application programmer (you) can return
+this structure to the RFC library in order to specify the error type &amp; message that
+you want to send back to the backend.</p>
+</div><h2 id='fields' class='fields small-section-header'>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id='structfield.code' class="structfield">
+                           <span id='code.v' class='invisible'>
+                           <code>code: <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">RFC_RC</a></code>
+                           </span></span><div class='docblock'><p>Error code. Should be the same as the API returns if the API has return type RFC_RC</p>
+</div><span id='structfield.group' class="structfield">
+                           <span id='group.v' class='invisible'>
+                           <code>group: <a class="enum" href="../../sapnwrfc/binding/enum._RFC_ERROR_GROUP.html" title="enum sapnwrfc::binding::_RFC_ERROR_GROUP">RFC_ERROR_GROUP</a></code>
+                           </span></span><div class='docblock'><p>Error group</p>
+</div><span id='structfield.key' class="structfield">
+                           <span id='key.v' class='invisible'>
+                           <code>key: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 128]</a></code>
+                           </span></span><div class='docblock'><p>Error key</p>
+</div><span id='structfield.message' class="structfield">
+                           <span id='message.v' class='invisible'>
+                           <code>message: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 512]</a></code>
+                           </span></span><div class='docblock'><p>Error message</p>
+</div><span id='structfield.abapMsgClass' class="structfield">
+                           <span id='abapMsgClass.v' class='invisible'>
+                           <code>abapMsgClass: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 21]</a></code>
+                           </span></span><div class='docblock'><p>ABAP message ID , or class</p>
+</div><span id='structfield.abapMsgType' class="structfield">
+                           <span id='abapMsgType.v' class='invisible'>
+                           <code>abapMsgType: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 2]</a></code>
+                           </span></span><div class='docblock'><p>ABAP message type, e.g. &#39;E&#39;, &#39;A&#39; or &#39;X&#39;</p>
+</div><span id='structfield.abapMsgNumber' class="structfield">
+                           <span id='abapMsgNumber.v' class='invisible'>
+                           <code>abapMsgNumber: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.RFC_NUM.html" title="type sapnwrfc::binding::RFC_NUM">RFC_NUM</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 4]</a></code>
+                           </span></span><div class='docblock'><p>ABAP message number</p>
+</div><span id='structfield.abapMsgV1' class="structfield">
+                           <span id='abapMsgV1.v' class='invisible'>
+                           <code>abapMsgV1: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 51]</a></code>
+                           </span></span><div class='docblock'><p>ABAP message details field 1, corresponds to SY-MSGV1</p>
+</div><span id='structfield.abapMsgV2' class="structfield">
+                           <span id='abapMsgV2.v' class='invisible'>
+                           <code>abapMsgV2: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 51]</a></code>
+                           </span></span><div class='docblock'><p>ABAP message details field 2, corresponds to SY-MSGV2</p>
+</div><span id='structfield.abapMsgV3' class="structfield">
+                           <span id='abapMsgV3.v' class='invisible'>
+                           <code>abapMsgV3: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 51]</a></code>
+                           </span></span><div class='docblock'><p>ABAP message details field 3, corresponds to SY-MSGV3</p>
+</div><span id='structfield.abapMsgV4' class="structfield">
+                           <span id='abapMsgV4.v' class='invisible'>
+                           <code>abapMsgV4: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 51]</a></code>
+                           </span></span><div class='docblock'><p>ABAP message details field 4, corresponds to SY-MSGV4</p>
+</div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Copy' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> for <a class="struct" href="../../sapnwrfc/binding/struct._RFC_ERROR_INFO.html" title="struct sapnwrfc::binding::_RFC_ERROR_INFO">_RFC_ERROR_INFO</a></code><a href='#impl-Copy' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#236' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../../sapnwrfc/binding/struct._RFC_ERROR_INFO.html" title="struct sapnwrfc::binding::_RFC_ERROR_INFO">_RFC_ERROR_INFO</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#323-325' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#324' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 id='impl-Default' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../../sapnwrfc/binding/struct._RFC_ERROR_INFO.html" title="struct sapnwrfc::binding::_RFC_ERROR_INFO">_RFC_ERROR_INFO</a></code><a href='#impl-Default' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#326-328' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#327' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "sapnwrfc";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

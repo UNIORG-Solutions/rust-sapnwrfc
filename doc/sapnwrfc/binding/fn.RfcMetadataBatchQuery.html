@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `RfcMetadataBatchQuery` fn in crate `sapnwrfc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RfcMetadataBatchQuery">
+
+    <title>sapnwrfc::binding::RfcMetadataBatchQuery - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc fn">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a></p><script>window.sidebarCurrent = {name: 'RfcMetadataBatchQuery', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a>::<wbr><a class="fn" href=''>RfcMetadataBatchQuery</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#5666-5674' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub unsafe extern &quot;C&quot; fn RfcMetadataBatchQuery(<br>&nbsp;&nbsp;&nbsp;&nbsp;rfcHandle: <a class="type" href="../../sapnwrfc/binding/type.RFC_CONNECTION_HANDLE.html" title="type sapnwrfc::binding::RFC_CONNECTION_HANDLE">RFC_CONNECTION_HANDLE</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;functionNames: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*const </a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;functionCount: <a class="type" href="https://doc.rust-lang.org/nightly/std/os/raw/type.c_uint.html" title="type std::os::raw::c_uint">c_uint</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;typeNames: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*const </a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;typeCount: <a class="type" href="https://doc.rust-lang.org/nightly/std/os/raw/type.c_uint.html" title="type std::os::raw::c_uint">c_uint</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;classNames: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*const </a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;classCount: <a class="type" href="https://doc.rust-lang.org/nightly/std/os/raw/type.c_uint.html" title="type std::os::raw::c_uint">c_uint</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;handle: <a class="type" href="../../sapnwrfc/binding/type.RFC_METADATA_QUERY_RESULT_HANDLE.html" title="type sapnwrfc::binding::RFC_METADATA_QUERY_RESULT_HANDLE">RFC_METADATA_QUERY_RESULT_HANDLE</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;errorInfo: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.RFC_ERROR_INFO.html" title="type sapnwrfc::binding::RFC_ERROR_INFO">RFC_ERROR_INFO</a><br>) -&gt; <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">RFC_RC</a></pre><div class='docblock'><p>Queries the meta data for function, type and class lists.</p>
+
+<p>Queries the meta data for function, type and class lists. All meta data is fetched using one roundtrip,
+the result is cached in the repository cache.</p>
+
+<p>Note: You can use this feature only, if your backend system supports it. SAP Note 1456826 describes the
+required minimum support package level that the backend system must have. If the backend system supports
+it, open the RFC_CONNECTION_HANDLE with the additional logon parameter USE_REPOSITORY_ROUNDTRIP_OPTIMIZATION=1,
+before you pass it to %RfcMetadataBatchQuery().</p>
+
+<p>\in rfcHandle Open client connection to the R/3 System, for which you need the function module, type or class descriptions.
+\in *functionNames Names of the function modules to look up
+\in functionCount Length of the function name list
+\in *typeNames Names of the types (structures and tables) to look up
+\in typeCount Length of the type name list
+\in *classNames Names of the classes to look up
+\in classCount Length of the class name list
+\in handle Query result, may be null
+\out *errorInfo More error details in case something goes wrong
+\return RFC_RC</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "sapnwrfc";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

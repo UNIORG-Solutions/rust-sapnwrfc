@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `RfcStartServer` fn in crate `sapnwrfc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RfcStartServer">
+
+    <title>sapnwrfc::binding::RfcStartServer - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc fn">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a></p><script>window.sidebarCurrent = {name: 'RfcStartServer', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a>::<wbr><a class="fn" href=''>RfcStartServer</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#1961-1965' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub unsafe extern &quot;C&quot; fn RfcStartServer(<br>&nbsp;&nbsp;&nbsp;&nbsp;argc: <a class="type" href="https://doc.rust-lang.org/nightly/std/os/raw/type.c_int.html" title="type std::os::raw::c_int">c_int</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;argv: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;connectionParams: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*const </a><a class="type" href="../../sapnwrfc/binding/type.RFC_CONNECTION_PARAMETER.html" title="type sapnwrfc::binding::RFC_CONNECTION_PARAMETER">RFC_CONNECTION_PARAMETER</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;paramCount: <a class="type" href="https://doc.rust-lang.org/nightly/std/os/raw/type.c_uint.html" title="type std::os::raw::c_uint">c_uint</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;errorInfo: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.RFC_ERROR_INFO.html" title="type sapnwrfc::binding::RFC_ERROR_INFO">RFC_ERROR_INFO</a><br>) -&gt; <a class="type" href="../../sapnwrfc/binding/type.RFC_CONNECTION_HANDLE.html" title="type sapnwrfc::binding::RFC_CONNECTION_HANDLE">RFC_CONNECTION_HANDLE</a></pre><div class='docblock'><p>Allows a program to be used as an RFC server which is started by the backend on demand.</p>
+
+<p>This API needs to be called, if the server program is to be started by the R/3 application server.
+(RFC destination in SM59 of type &quot;T&quot; in startup mode.)
+argc and argv are the inputs of the mainU function. The R/3 application server passes the correct command line to
+the program, when starting it up, so you only need to forward these two parameters to %RfcStartServer().
+connectionParams is optional and is only needed, if you want to add additional logon parameters to the
+ones coming from the command line, e.g for activating trace.</p>
+
+<p>Like RfcRegisterServer(), the function returns a server connection handle that can be used in RfcListenAndDispatch().
+The mechanism of this kind of RFC destination thus works as follows:
+-# The R/3 application server opens a telnet connection to the host, where your server program is located, and
+starts the program with the necessary logon parameters. (Or creates a child process, if the startup
+method is &quot;Start on application server&quot;.)
+-# Your server program calls RfcStartServer, which opens an RFC connection back to the R/3 system.
+-# The R/3 system then makes the function call over that RFC connection.</p>
+
+<p>The main differences of &quot;startup mode&quot; compared to the &quot;registration mode&quot; are:
+- Advantage: no logon parameters need to be maintained in the server program. (Unless you want to open
+an additional client connection for looking up function module metadata (RFC_FUNCTION_DESC_HANDLEs) in the
+R/3 DDIC.)
+- Disadvantage: every single function call creates a new process and a telnet connection in addition to
+the actual RFC connection.</p>
+
+<p>\in argc From mainU() (command line supplied by backend)
+\in **argv From mainU() (command line supplied by backend)
+\in *connectionParams May optionally contain additional logon parameters
+\in paramCount Length of the connection parameter array above
+\out *errorInfo Returns more error details, if the connect attempt fails.
+\return A handle to an RFC server connection that can be used for listening for function module requests from the backend.</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "sapnwrfc";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

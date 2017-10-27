@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `RfcSetTraceLevel` fn in crate `sapnwrfc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RfcSetTraceLevel">
+
+    <title>sapnwrfc::binding::RfcSetTraceLevel - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc fn">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a></p><script>window.sidebarCurrent = {name: 'RfcSetTraceLevel', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a>::<wbr><a class="fn" href=''>RfcSetTraceLevel</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#1690-1693' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub unsafe extern &quot;C&quot; fn RfcSetTraceLevel(<br>&nbsp;&nbsp;&nbsp;&nbsp;connection: <a class="type" href="../../sapnwrfc/binding/type.RFC_CONNECTION_HANDLE.html" title="type sapnwrfc::binding::RFC_CONNECTION_HANDLE">RFC_CONNECTION_HANDLE</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;destination: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;traceLevel: <a class="type" href="https://doc.rust-lang.org/nightly/std/os/raw/type.c_uint.html" title="type std::os::raw::c_uint">c_uint</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;errorInfo: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.RFC_ERROR_INFO.html" title="type sapnwrfc::binding::RFC_ERROR_INFO">RFC_ERROR_INFO</a><br>) -&gt; <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">RFC_RC</a></pre><div class='docblock'><p>Sets the current trace level of the specified RFC connection or destination to the new value.</p>
+
+<p>Note: If both of connection and destination are NULL, this function sets the &quot;global&quot;
+trace level. See below.
+\in connection A handle to a currently open RFC connection (client or server connection).
+The new trace level will be effective immediately.
+\in *destination Null-terminated string specifying a client or server destination as defined
+via a DEST=... entry in sapnwrfc.ini. The new trace level will be used for new connections
+to that destination opened after the %RfcSetTraceLevel() call. Already existing connections to
+that destination will not be effected.
+\in traceLevel The new trace level. Must be between 0 and 3. The meaning of those four values
+is as follows:
+- 0: Off. Only severe errors are logged to the dev_rfc.trc file.
+- 1: Brief. All API calls (except for the setter and getter functions) and important attributes
+like codepages, RFC headers, logon parameters are traced. Trace is written to a file named
+rfc&lt;pid&gt;.trc or rfc&lt;pid&gt;_&lt;tid&gt;.trc, depending on whether tracing is done
+on a &quot;per-process&quot; basis or a &quot;per-thread&quot; basis. &lt;pid&gt; is the current process ID,
+&lt;tid&gt; the current thread ID.
+- 2: Verbose. In addition to 1, the values of the &quot;scalar&quot; RFC parameters as well as the contents
+of the network containers are traced. Scalar parameters are primitive types (CHAR, INT, FLOAT, etc)
+and flat structures.
+- 3: Full. In addition to 2 the contents of nested structures and tables as well as all API calls
+of setter and getter functions are traced.
+\out *errorInfo Detail information in case the specified connection or destination does not exist.
+\return RFC_OK, RFC_INVALID_HANDLE or RFC_INVALID_PARAMETER</p>
+
+<p>Note: In general RFC trace can be activated/deactivated in 6 different ways:
+- By setting the parameter RFC_TRACE=[0|1|2|3] in the DEFAULT section of the sapnwrfc.ini file.
+This value applies to all destinations, for which no explicit trace level has been set.
+(&quot;Global&quot; trace level.)
+- By setting the parameter TRACE=[0|1|2|3] in a specific destination section of sapnwrfc.ini.
+it applies to that destination only and overrules the &quot;global&quot; trace level from the DEFAULT section.
+- By setting the environment variable RFC_TRACE=[0|1|2|3]. This overrules the setting from the
+DEFAULT section of sapnwrfc.ini.
+- Via %RfcSetTraceLevel(). If connection and destination are NULL, this function sets the global
+trace level and overrules the value from the DEFAULT section of sapnwrfc.ini as well as the environment
+variable RFC_TRACE. If connection is non-NULL, it sets the trace level for the current connection only,
+and if destination is non-NULL, it sets the trace level for that destination, overruling the value from
+this destination&#39;s section in the sapnwrfc.ini file.
+- By passing a {name=TRACE, value=[0|1|2|3]} pair in the RFC_CONNECTION_PARAMETER array used in
+RfcOpenConnection(), RfcRegisterServer() or RfcStartServer(). If that RFC_CONNECTION_PARAMETER array
+also contains a {name=DEST, value=...} pair, the trace parameter from the array overrules the value
+from this destination&#39;s sapnwrfc.ini section.
+- In case the program is a server program: by activating the trace flag for the corresponding destination
+in SM59. The trace setting on backend side is then &quot;inherited&quot; by the external side.</p>
+
+<p>Note: For more information on trace settings see the sample sapnwrfc.ini file contained in the demo folder.</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "sapnwrfc";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

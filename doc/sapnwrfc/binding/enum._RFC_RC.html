@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `_RFC_RC` enum in crate `sapnwrfc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, _RFC_RC">
+
+    <title>sapnwrfc::binding::_RFC_RC - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc enum">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Enum _RFC_RC</p><div class="block items"><ul><li><a href="#variants">Variants</a></li><li><a href="#implementations">Trait Implementations</a></li></ul></div><p class='location'><a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a></p><script>window.sidebarCurrent = {name: '_RFC_RC', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a>::<wbr><a class="enum" href=''>_RFC_RC</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#170-202' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'><div class="docblock attributes">#[repr(u32)]
+</div>pub enum _RFC_RC {
+    RFC_OK,
+    RFC_COMMUNICATION_FAILURE,
+    RFC_LOGON_FAILURE,
+    RFC_ABAP_RUNTIME_FAILURE,
+    RFC_ABAP_MESSAGE,
+    RFC_ABAP_EXCEPTION,
+    RFC_CLOSED,
+    RFC_CANCELED,
+    RFC_TIMEOUT,
+    RFC_MEMORY_INSUFFICIENT,
+    RFC_VERSION_MISMATCH,
+    RFC_INVALID_PROTOCOL,
+    RFC_SERIALIZATION_FAILURE,
+    RFC_INVALID_HANDLE,
+    RFC_RETRY,
+    RFC_EXTERNAL_FAILURE,
+    RFC_EXECUTED,
+    RFC_NOT_FOUND,
+    RFC_NOT_SUPPORTED,
+    RFC_ILLEGAL_STATE,
+    RFC_INVALID_PARAMETER,
+    RFC_CODEPAGE_CONVERSION_FAILURE,
+    RFC_CONVERSION_FAILURE,
+    RFC_BUFFER_TOO_SMALL,
+    RFC_TABLE_MOVE_BOF,
+    RFC_TABLE_MOVE_EOF,
+    RFC_START_SAPGUI_FAILURE,
+    RFC_ABAP_CLASS_EXCEPTION,
+    RFC_UNKNOWN_ERROR,
+    RFC_AUTHORIZATION_FAILURE,
+    _RFC_RC_max_value,
+}</pre><div class='docblock'><p>_RFC_RC</p>
+
+<p>RFC return codes used by all functions that do not directly return a handle.
+Also used as error indicator in the structure #RFC_ERROR_INFO::code.</p>
+</div><h2 id='variants' class='variants small-section-header'>
+                   Variants<a href='#variants' class='anchor'></a></h2>
+<span id='variant.RFC_OK' class='variant'><span id='RFC_OK.v' class='invisible'><code>RFC_OK</code></span></span><span id='variant.RFC_COMMUNICATION_FAILURE' class='variant'><span id='RFC_COMMUNICATION_FAILURE.v' class='invisible'><code>RFC_COMMUNICATION_FAILURE</code></span></span><span id='variant.RFC_LOGON_FAILURE' class='variant'><span id='RFC_LOGON_FAILURE.v' class='invisible'><code>RFC_LOGON_FAILURE</code></span></span><span id='variant.RFC_ABAP_RUNTIME_FAILURE' class='variant'><span id='RFC_ABAP_RUNTIME_FAILURE.v' class='invisible'><code>RFC_ABAP_RUNTIME_FAILURE</code></span></span><span id='variant.RFC_ABAP_MESSAGE' class='variant'><span id='RFC_ABAP_MESSAGE.v' class='invisible'><code>RFC_ABAP_MESSAGE</code></span></span><span id='variant.RFC_ABAP_EXCEPTION' class='variant'><span id='RFC_ABAP_EXCEPTION.v' class='invisible'><code>RFC_ABAP_EXCEPTION</code></span></span><span id='variant.RFC_CLOSED' class='variant'><span id='RFC_CLOSED.v' class='invisible'><code>RFC_CLOSED</code></span></span><span id='variant.RFC_CANCELED' class='variant'><span id='RFC_CANCELED.v' class='invisible'><code>RFC_CANCELED</code></span></span><span id='variant.RFC_TIMEOUT' class='variant'><span id='RFC_TIMEOUT.v' class='invisible'><code>RFC_TIMEOUT</code></span></span><span id='variant.RFC_MEMORY_INSUFFICIENT' class='variant'><span id='RFC_MEMORY_INSUFFICIENT.v' class='invisible'><code>RFC_MEMORY_INSUFFICIENT</code></span></span><span id='variant.RFC_VERSION_MISMATCH' class='variant'><span id='RFC_VERSION_MISMATCH.v' class='invisible'><code>RFC_VERSION_MISMATCH</code></span></span><span id='variant.RFC_INVALID_PROTOCOL' class='variant'><span id='RFC_INVALID_PROTOCOL.v' class='invisible'><code>RFC_INVALID_PROTOCOL</code></span></span><span id='variant.RFC_SERIALIZATION_FAILURE' class='variant'><span id='RFC_SERIALIZATION_FAILURE.v' class='invisible'><code>RFC_SERIALIZATION_FAILURE</code></span></span><span id='variant.RFC_INVALID_HANDLE' class='variant'><span id='RFC_INVALID_HANDLE.v' class='invisible'><code>RFC_INVALID_HANDLE</code></span></span><span id='variant.RFC_RETRY' class='variant'><span id='RFC_RETRY.v' class='invisible'><code>RFC_RETRY</code></span></span><span id='variant.RFC_EXTERNAL_FAILURE' class='variant'><span id='RFC_EXTERNAL_FAILURE.v' class='invisible'><code>RFC_EXTERNAL_FAILURE</code></span></span><span id='variant.RFC_EXECUTED' class='variant'><span id='RFC_EXECUTED.v' class='invisible'><code>RFC_EXECUTED</code></span></span><span id='variant.RFC_NOT_FOUND' class='variant'><span id='RFC_NOT_FOUND.v' class='invisible'><code>RFC_NOT_FOUND</code></span></span><span id='variant.RFC_NOT_SUPPORTED' class='variant'><span id='RFC_NOT_SUPPORTED.v' class='invisible'><code>RFC_NOT_SUPPORTED</code></span></span><span id='variant.RFC_ILLEGAL_STATE' class='variant'><span id='RFC_ILLEGAL_STATE.v' class='invisible'><code>RFC_ILLEGAL_STATE</code></span></span><span id='variant.RFC_INVALID_PARAMETER' class='variant'><span id='RFC_INVALID_PARAMETER.v' class='invisible'><code>RFC_INVALID_PARAMETER</code></span></span><span id='variant.RFC_CODEPAGE_CONVERSION_FAILURE' class='variant'><span id='RFC_CODEPAGE_CONVERSION_FAILURE.v' class='invisible'><code>RFC_CODEPAGE_CONVERSION_FAILURE</code></span></span><span id='variant.RFC_CONVERSION_FAILURE' class='variant'><span id='RFC_CONVERSION_FAILURE.v' class='invisible'><code>RFC_CONVERSION_FAILURE</code></span></span><span id='variant.RFC_BUFFER_TOO_SMALL' class='variant'><span id='RFC_BUFFER_TOO_SMALL.v' class='invisible'><code>RFC_BUFFER_TOO_SMALL</code></span></span><span id='variant.RFC_TABLE_MOVE_BOF' class='variant'><span id='RFC_TABLE_MOVE_BOF.v' class='invisible'><code>RFC_TABLE_MOVE_BOF</code></span></span><span id='variant.RFC_TABLE_MOVE_EOF' class='variant'><span id='RFC_TABLE_MOVE_EOF.v' class='invisible'><code>RFC_TABLE_MOVE_EOF</code></span></span><span id='variant.RFC_START_SAPGUI_FAILURE' class='variant'><span id='RFC_START_SAPGUI_FAILURE.v' class='invisible'><code>RFC_START_SAPGUI_FAILURE</code></span></span><span id='variant.RFC_ABAP_CLASS_EXCEPTION' class='variant'><span id='RFC_ABAP_CLASS_EXCEPTION.v' class='invisible'><code>RFC_ABAP_CLASS_EXCEPTION</code></span></span><span id='variant.RFC_UNKNOWN_ERROR' class='variant'><span id='RFC_UNKNOWN_ERROR.v' class='invisible'><code>RFC_UNKNOWN_ERROR</code></span></span><span id='variant.RFC_AUTHORIZATION_FAILURE' class='variant'><span id='RFC_AUTHORIZATION_FAILURE.v' class='invisible'><code>RFC_AUTHORIZATION_FAILURE</code></span></span><span id='variant._RFC_RC_max_value' class='variant'><span id='_RFC_RC_max_value.v' class='invisible'><code>_RFC_RC_max_value</code></span></span>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">_RFC_RC</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#169' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#169' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 id='impl-Copy' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> for <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">_RFC_RC</a></code><a href='#impl-Copy' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#169' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">_RFC_RC</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#169' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">_RFC_RC</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#169' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 id='impl-PartialEq' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html" title="trait core::cmp::PartialEq">PartialEq</a> for <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">_RFC_RC</a></code><a href='#impl-PartialEq' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#169' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class="method"><span id='eq.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">_RFC_RC</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#169' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class="method"><span id='ne.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, other: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Rhs) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/cmp.rs.html#121' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 id='impl-Eq' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html" title="trait core::cmp::Eq">Eq</a> for <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">_RFC_RC</a></code><a href='#impl-Eq' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#169' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 id='impl-Hash' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html" title="trait core::hash::Hash">Hash</a> for <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">_RFC_RC</a></code><a href='#impl-Hash' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#169' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.hash' class="method"><span id='hash.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#tymethod.hash' class='fnname'>hash</a>&lt;__H:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html" title="trait core::hash::Hasher">Hasher</a>&gt;(&amp;self, __arg_0: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>__H)</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#169' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Feeds this value into the given [<code>Hasher</code>]. <a href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#tymethod.hash">Read more</a></p>
+</div><h4 id='method.hash_slice' class="method"><span id='hash_slice.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#method.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[Self]</a>, state: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;mut </a>H) <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;H: <a class="trait" href="https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html" title="trait core::hash::Hasher">Hasher</a>,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.3.0'>1.3.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/hash/mod.rs.html#202-208' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Feeds a slice of this type into the given [<code>Hasher</code>]. <a href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#method.hash_slice">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "sapnwrfc";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

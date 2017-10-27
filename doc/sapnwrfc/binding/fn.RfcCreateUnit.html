@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `RfcCreateUnit` fn in crate `sapnwrfc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RfcCreateUnit">
+
+    <title>sapnwrfc::binding::RfcCreateUnit - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc fn">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a></p><script>window.sidebarCurrent = {name: 'RfcCreateUnit', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a>::<wbr><a class="fn" href=''>RfcCreateUnit</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#2378-2383' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub unsafe extern &quot;C&quot; fn RfcCreateUnit(<br>&nbsp;&nbsp;&nbsp;&nbsp;rfcHandle: <a class="type" href="../../sapnwrfc/binding/type.RFC_CONNECTION_HANDLE.html" title="type sapnwrfc::binding::RFC_CONNECTION_HANDLE">RFC_CONNECTION_HANDLE</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;uid: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;queueNames: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*const </a><a class="type" href="../../sapnwrfc/binding/type.SAP_UC.html" title="type sapnwrfc::binding::SAP_UC">SAP_UC</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;queueNameCount: <a class="type" href="https://doc.rust-lang.org/nightly/std/os/raw/type.c_uint.html" title="type std::os::raw::c_uint">c_uint</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;unitAttr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*const </a><a class="type" href="../../sapnwrfc/binding/type.RFC_UNIT_ATTRIBUTES.html" title="type sapnwrfc::binding::RFC_UNIT_ATTRIBUTES">RFC_UNIT_ATTRIBUTES</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;identifier: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.RFC_UNIT_IDENTIFIER.html" title="type sapnwrfc::binding::RFC_UNIT_IDENTIFIER">RFC_UNIT_IDENTIFIER</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;errorInfo: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.RFC_ERROR_INFO.html" title="type sapnwrfc::binding::RFC_ERROR_INFO">RFC_ERROR_INFO</a><br>) -&gt; <a class="type" href="../../sapnwrfc/binding/type.RFC_UNIT_HANDLE.html" title="type sapnwrfc::binding::RFC_UNIT_HANDLE">RFC_UNIT_HANDLE</a></pre><div class='docblock'><p>Create a bgRFC unit.</p>
+
+<p>Creates a data container that can later be filled with one or more function modules comprising the
+bgRFC unit. The backend will execute these function modules as an atomic unit.
+The connection handle specifies the target system, to which the unit will later be sent. The unit ID
+has been created in the previous step (or is an old one in case of retrying a failed unit).
+Via queueNames and queueNameCount you can specify the list of bgRFC queues, into which this unit
+shall later be inserted. If no queues are given (queueNameCount == 0), a synchronous unit is created
+(type &#39;T&#39;) that will later be executed immediately. Otherwise an asynchronous unit (type &#39;Q&#39;) is created,
+which will be inserted into the named queues and executed asynchronously by the bgRFC scheduler.</p>
+
+<p>\in rfcHandle An open RFC connection into the system that will later receive the unit.
+\in uid A 32 digit unique identifier of the unit.
+\in *queueNames[] A list of bgRFC queues in the backend or NULL.
+\in queueNameCount The length of the queueNames list.
+\in *unitAttr A set of attributes that specify the behaviour of the unit in the backend.
+See RFC_UNIT_ATTRIBUTES for more information.
+\out *identifier This identifier can be used in later calls to RfcConfirmUnit() and RfcGetUnitState().
+It is important that these functions are called with the correct unit type (&#39;T&#39; or &#39;Q&#39;), otherwise
+the backend system won&#39;t find the status information corresponding to the uid... Therefore the
+NW RFC lib bundles the uid and the correct unit type here for your convenience.
+\out *errorInfo More details in case something goes wrong.
+\return RFC_OK or RFC_MEMORY_INSUFFICIENT</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "sapnwrfc";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `RfcInstallPassportManager` fn in crate `sapnwrfc`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RfcInstallPassportManager">
+
+    <title>sapnwrfc::binding::RfcInstallPassportManager - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc fn">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a></p><script>window.sidebarCurrent = {name: 'RfcInstallPassportManager', ty: 'fn', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Function <a href='../index.html'>sapnwrfc</a>::<wbr><a href='index.html'>binding</a>::<wbr><a class="fn" href=''>RfcInstallPassportManager</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/sapnwrfc/binding.rs.html#2668-2673' title='goto source code'>[src]</a></span></h1>
+<pre class='rust fn'>pub unsafe extern &quot;C&quot; fn RfcInstallPassportManager(<br>&nbsp;&nbsp;&nbsp;&nbsp;onClientCallStart: <a class="type" href="../../sapnwrfc/binding/type.RFC_PM_CALLBACK.html" title="type sapnwrfc::binding::RFC_PM_CALLBACK">RFC_PM_CALLBACK</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;onClientCallEnd: <a class="type" href="../../sapnwrfc/binding/type.RFC_PM_CALLBACK.html" title="type sapnwrfc::binding::RFC_PM_CALLBACK">RFC_PM_CALLBACK</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;onServerCallStart: <a class="type" href="../../sapnwrfc/binding/type.RFC_PM_CALLBACK.html" title="type sapnwrfc::binding::RFC_PM_CALLBACK">RFC_PM_CALLBACK</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;onServerCallEnd: <a class="type" href="../../sapnwrfc/binding/type.RFC_PM_CALLBACK.html" title="type sapnwrfc::binding::RFC_PM_CALLBACK">RFC_PM_CALLBACK</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;errorInfo: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="type" href="../../sapnwrfc/binding/type.RFC_ERROR_INFO.html" title="type sapnwrfc::binding::RFC_ERROR_INFO">RFC_ERROR_INFO</a><br>) -&gt; <a class="enum" href="../../sapnwrfc/binding/enum._RFC_RC.html" title="enum sapnwrfc::binding::_RFC_RC">RFC_RC</a></pre><div class='docblock'><p>Installs the necessary callback functions for processing Extended Passport (EPP) events.</p>
+
+<p>Extended Passports is a feature that supersedes Distributed Statistical Records (DSRs).
+It allows to track certain performance attributes across system boundaries. These callback functions
+allow the application to exchange passports with the backend system. The actual data contained in the
+passports, can be processed with the eppslib library.
+Note: Normal RFC applications should never need to deal with this topic at all...</p>
+
+<p>\in onClientCallStart Pointer to a function of type RFC_PM_CALLBACK. The RFC lib calls this function, before it sends a client request into the backend. Here you can provide the passport that is to be sent along with the RFC request.
+\in onClientCallEnd Pointer to a function of type RFC_PM_CALLBACK. The RFC lib calls this function, after the RFC response was received from the backend. You can read the updated passport information.
+\in onServerCallStart Pointer to a function of type RFC_PM_CALLBACK. The RFC lib calls this function, when it received an RFC request from the backend. Here you can read the passport that accompanied the request.
+\in onServerCallEnd Pointer to a function of type RFC_PM_CALLBACK. The RFC lib calls this function, before it will send the response to the above request back to the backend. You can update the passport data with information about processing performance of the current call.
+\out *errorInfo Additional information, in case the handlers could not be installed.
+\return RFC_RC</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "sapnwrfc";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>
